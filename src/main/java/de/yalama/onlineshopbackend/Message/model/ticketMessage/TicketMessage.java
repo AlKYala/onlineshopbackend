@@ -24,5 +24,5 @@ public class TicketMessage extends Message {
     @ManyToOne
     @JoinColumn
     @EqualsAndHashCode.Exclude
-    private Ticket messageOfTicket;
+    private Ticket ticketOfMessage;
 }
