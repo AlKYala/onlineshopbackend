@@ -1,4 +1,4 @@
-package de.yalama.onlineshopbackend.pictures.model;
+package de.yalama.onlineshopbackend.Pictures.model;
 
 import com.sun.istack.NotNull;
 import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
