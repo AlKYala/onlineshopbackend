@@ -3,7 +3,7 @@ package de.yalama.onlineshopbackend.Purchase.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
-import de.yalama.onlineshopbackend.Message.model.purchaseMessage.PurchaseMessage;
+import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage;
 import de.yalama.onlineshopbackend.Ticket.model.Ticket;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
