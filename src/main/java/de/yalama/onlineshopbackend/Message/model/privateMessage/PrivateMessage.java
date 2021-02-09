@@ -1,7 +1,6 @@
-package de.yalama.onlineshopbackend.Message.ticketMessage.model;
+package de.yalama.onlineshopbackend.Message.model.privateMessage;
 
 import de.yalama.onlineshopbackend.Message.model.Message;
-import de.yalama.onlineshopbackend.Ticket.model.Ticket;
 import de.yalama.onlineshopbackend.User.model.User;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -12,17 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Setter
 @Getter
-public class TicketMessage extends Message {
+@Setter
+public class PrivateMessage extends Message {
 
     @ManyToOne
     @JoinColumn
     @EqualsAndHashCode.Exclude
-    private User writer;
+    private User sender;
 
     @ManyToOne
     @JoinColumn
     @EqualsAndHashCode.Exclude
-    private Ticket ticketOfMessage;
+    private User receiver;
 }

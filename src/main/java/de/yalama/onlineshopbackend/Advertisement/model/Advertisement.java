@@ -5,7 +5,7 @@ import com.sun.istack.NotNull;
 import de.yalama.onlineshopbackend.Product.model.Product;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;
 import de.yalama.onlineshopbackend.User.model.User;
-import de.yalama.onlineshopbackend.Pictures.model.Picture;
+import de.yalama.onlineshopbackend.pictures.model.Picture;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
