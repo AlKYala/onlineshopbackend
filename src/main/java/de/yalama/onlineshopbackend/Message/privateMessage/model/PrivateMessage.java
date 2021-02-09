@@ -1,4 +1,4 @@
-package de.yalama.onlineshopbackend.Message.model.privateMessage;
+package de.yalama.onlineshopbackend.Message.privateMessage.model;
 
 import de.yalama.onlineshopbackend.Message.model.Message;
 import de.yalama.onlineshopbackend.User.model.User;

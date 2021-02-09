@@ -1,4 +1,4 @@
-package de.yalama.onlineshopbackend.Message.model.purchaseMessage;
+package de.yalama.onlineshopbackend.Message.purchaseMessage.model;
 
 import de.yalama.onlineshopbackend.Message.model.Message;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;

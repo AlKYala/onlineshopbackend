@@ -1,4 +1,4 @@
-package de.yalama.onlineshopbackend.Message.model.ticketMessage;
+package de.yalama.onlineshopbackend.Message.ticketMessage.model;
 
 import de.yalama.onlineshopbackend.Message.model.Message;
 import de.yalama.onlineshopbackend.Ticket.model.Ticket;

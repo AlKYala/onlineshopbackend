@@ -2,7 +2,7 @@ package de.yalama.onlineshopbackend.Ticket.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import de.yalama.onlineshopbackend.Message.model.ticketMessage.TicketMessage;
+import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
