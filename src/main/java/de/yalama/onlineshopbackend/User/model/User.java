@@ -2,6 +2,7 @@ package de.yalama.onlineshopbackend.User.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Message.privateMessage.model.PrivateMessage;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage;
 import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
@@ -42,7 +43,7 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "seller")
     @JsonIgnore
-    private Set<Purchase> salesOfUser;
+    private Set<Advertisement> salesOfUser;
 
     @OneToMany(mappedBy = "ticketOpener")
     @JsonIgnore
