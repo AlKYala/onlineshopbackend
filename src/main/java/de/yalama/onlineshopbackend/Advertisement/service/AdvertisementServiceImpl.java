@@ -75,6 +75,6 @@ public class AdvertisementServiceImpl extends AdvertisementService {
                         this.purchaseRepository.findById(toDelete.getId()).get().setAdvertisementOfPurchase(null));
 
         this.advertisementRepository.deleteById(id);
-        return null;
+        return id;
     }
 }
