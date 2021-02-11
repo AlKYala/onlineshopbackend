@@ -2,6 +2,8 @@ package de.yalama.onlineshopbackend.Message.purchaseMessage.service;
 
 import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.repository.PurchaseMessageRepository;
+import de.yalama.onlineshopbackend.User.repository.UserRepository;
+import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +14,19 @@ import java.util.List;
 public class PurchaseMessageServiceImpl extends PurchaseMessageService {
 
     private PurchaseMessageRepository purchaseMessageRepository;
+    private Validator<PurchaseMessage, PurchaseMessageRepository> validator;
+    private UserRepository userRepository;
 
-    public PurchaseMessageServiceImpl(PurchaseMessageRepository purchaseMessageRepository) {
+    public PurchaseMessageServiceImpl(PurchaseMessageRepository purchaseMessageRepository,
+                                      UserRepository userRepository) {
         this.purchaseMessageRepository = purchaseMessageRepository;
+        this.validator = new Validator<PurchaseMessage, PurchaseMessageRepository>
+                ("PurchaseMessage", purchaseMessageRepository);
     }
 
     @Override
     public PurchaseMessage findById(Long id) {
-        //TODO Validator exists, Exception notFound
+        this.validator.checkEntityExists(id);
         return this.purchaseMessageRepository.findById(id).get();
     }
 
@@ -30,18 +37,29 @@ public class PurchaseMessageServiceImpl extends PurchaseMessageService {
 
     @Override
     public PurchaseMessage save(PurchaseMessage instance) {
-        //TODO Validator notExists, Exception notSaved
+        this.validator.checkEntityNotExists(instance.getId());
         return this.purchaseMessageRepository.save(instance);
     }
 
     @Override
     public PurchaseMessage update(PurchaseMessage instance) {
-        //TODO Validator exists, Exception notFound, not Saved
+        this.validator.checkEntityExists(instance.getId());
         return this.purchaseMessageRepository.save(instance);
     }
 
     @Override
+    /**
+     * NOTE: Purchase Messages are the product itself and are therefore not deleted
+     */
     public Long deleteById(Long id) {
-        return null;
+        this.validator.checkEntityExists(id);
+
+        PurchaseMessage toDelete = this.findById(id);
+        toDelete.getPurchaseOfMessage().getMessagesInPurchase()
+                .removeIf(purchaseMessage -> purchaseMessage.getId() == id);
+
+        this.deleteById(id);
+
+        return id;
     }
 }

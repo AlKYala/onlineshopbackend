@@ -2,6 +2,8 @@ package de.yalama.onlineshopbackend.Message.ticketMessage.service;
 
 import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
 import de.yalama.onlineshopbackend.Message.ticketMessage.repository.TicketMessageRepository;
+import de.yalama.onlineshopbackend.Ticket.repository.TicketRepository;
+import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +14,21 @@ import java.util.List;
 public class TicketMessageServiceImpl extends TicketMessageService {
 
     private TicketMessageRepository ticketMessageRepository;
+    private Validator<TicketMessage, TicketMessageRepository> validator;
+    private TicketRepository ticketRepository;
 
-    public TicketMessageServiceImpl(TicketMessageRepository ticketMessageRepository) {
+    public TicketMessageServiceImpl(TicketMessageRepository ticketMessageRepository,
+                                    TicketRepository ticketRepository) {
         this.ticketMessageRepository = ticketMessageRepository;
+        this.validator = new Validator<TicketMessage, TicketMessageRepository>
+                ("TicketMessage", ticketMessageRepository);
+        this.ticketRepository = ticketRepository;
     }
 
 
     @Override
     public TicketMessage findById(Long id) {
-        //TODO Validator exists, Exception notFound
+        this.validator.checkEntityExists(id);
         return this.ticketMessageRepository.findById(id).get();
     }
 
@@ -31,20 +39,31 @@ public class TicketMessageServiceImpl extends TicketMessageService {
 
     @Override
     public TicketMessage save(TicketMessage instance) {
-        //TODO Validator notExists, Exception notSaved
+        this.validator.checkEntityNotExists(instance.getId());
         return this.ticketMessageRepository.save(instance);
     }
 
     @Override
     public TicketMessage update(TicketMessage instance) {
-        //TODO Validator exists, Exception notFound, not Saved
+        this.validator.checkEntityExists(instance.getId());
         return this.ticketMessageRepository.save(instance);
     }
 
     @Override
+    /**
+     * NOTE: The ticket has to be deleted first before the the messages are deleted
+     */
     public Long deleteById(Long id) {
-        //TODO Validator exists, Exception notFound, not Deleted
-        //TODO Relationships with deletion
+        this.validator.checkEntityExists(id);
+
+        TicketMessage toDelete = this.findById(id);
+
+        boolean ticketOfMessageExists = this.ticketRepository.existsById(toDelete.getTicketOfMessage().getId());
+
+        if(!ticketOfMessageExists) {
+            this.ticketMessageRepository.deleteById(id);
+            return id;
+        }
         return null;
     }
 }

@@ -61,9 +61,9 @@ public class PrivateMessageServiceImpl extends PrivateMessageService {
 
         if(!senderExists && !receiverExists) {
             this.privateMessageRepository.deleteById(id);
+            return id;
         }
-
-        return id;
+        return null;
     }
 
     public Long deleteIfBothUsersDeleted(Long id) {

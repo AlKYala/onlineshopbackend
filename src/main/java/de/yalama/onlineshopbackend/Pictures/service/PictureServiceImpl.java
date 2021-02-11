@@ -11,7 +11,7 @@ import java.util.List;
 @Slf4j
 public class PictureServiceImpl extends PictureService {
 
-    public PictureRepository pictureRepository;
+    private PictureRepository pictureRepository;
 
     public PictureServiceImpl(PictureRepository pictureRepository) {
         this.pictureRepository = pictureRepository;
