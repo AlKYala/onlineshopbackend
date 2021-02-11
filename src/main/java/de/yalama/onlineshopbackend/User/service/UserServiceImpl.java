@@ -113,7 +113,6 @@ public class UserServiceImpl extends UserService {
             this.privateMessageService.findById(privateMessage.getId()).setReceiver(null);
             this.privateMessageService.deleteIfBothUsersDeleted(privateMessage.getId());
         });
-        //PMs received
 
         return id;
     }
