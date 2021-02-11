@@ -1,7 +1,9 @@
 package de.yalama.onlineshopbackend.Pictures.service;
 
+import de.yalama.onlineshopbackend.Advertisement.repository.AdvertisementRepository;
 import de.yalama.onlineshopbackend.Pictures.model.Picture;
 import de.yalama.onlineshopbackend.Pictures.repository.PictureRepository;
+import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,15 +13,20 @@ import java.util.List;
 @Slf4j
 public class PictureServiceImpl extends PictureService {
 
-    public PictureRepository pictureRepository;
+    private PictureRepository pictureRepository;
+    private Validator<Picture, PictureRepository> validator;
+    private AdvertisementRepository advertisementRepository;
 
-    public PictureServiceImpl(PictureRepository pictureRepository) {
+    public PictureServiceImpl(PictureRepository pictureRepository,
+                              AdvertisementRepository advertisementRepository) {
         this.pictureRepository = pictureRepository;
+        this.validator = new Validator<Picture, PictureRepository>("Picture", this.pictureRepository);
+        this.advertisementRepository = advertisementRepository;
     }
 
     @Override
     public Picture findById(Long id) {
-        //TODO Validator exists, Exception notFound
+        this.validator.checkEntityExists(id);
         return this.pictureRepository.findById(id).get();
     }
 
@@ -30,20 +37,26 @@ public class PictureServiceImpl extends PictureService {
 
     @Override
     public Picture save(Picture instance) {
-        //TODO Validator notExists, Exception notSaved
+        this.validator.checkEntityNotExists(instance.getId());
         return this.pictureRepository.save(instance);
     }
 
     @Override
     public Picture update(Picture instance) {
-        //TODO Validator exists, Exception notFound, not Saved
+        this.validator.checkEntityExists(instance.getId());
         return this.pictureRepository.save(instance);
     }
 
     @Override
     public Long deleteById(Long id) {
-        //TODO Validator exists, Exception notFound, not Deleted
-        //TODO Relationships with deletion
+        this.validator.checkEntityExists(id);
+
+        boolean isAdDeleted = this.advertisementRepository.existsById(id);
+
+        if(isAdDeleted) {
+            this.advertisementRepository.deleteById(id);
+            return id;
+        }
         return null;
     }
 }

@@ -1,21 +1,30 @@
 package de.yalama.onlineshopbackend.Ticket.service;
 
+import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
+import de.yalama.onlineshopbackend.Message.ticketMessage.repository.TicketMessageRepository;
 import de.yalama.onlineshopbackend.Ticket.model.Ticket;
 import de.yalama.onlineshopbackend.Ticket.repository.TicketRepository;
+import de.yalama.onlineshopbackend.shared.service.Validator;
 
 import java.util.List;
+import java.util.Set;
 
 public class TicketServiceImpl extends TicketService{
 
     private TicketRepository ticketRepository;
+    private Validator<Ticket, TicketRepository> validator;
+    private TicketMessageRepository ticketMessageRepository;
 
-    public TicketServiceImpl(TicketRepository ticketRepository) {
+    public TicketServiceImpl(TicketRepository ticketRepository,
+                             TicketMessageRepository ticketMessageRepository) {
         this.ticketRepository = ticketRepository;
+        this.validator = new Validator<Ticket, TicketRepository>("Ticket", this.ticketRepository);
+        this.ticketMessageRepository = ticketMessageRepository;
     }
 
     @Override
     public Ticket findById(Long id) {
-        //TODO Validator exists, Exception notFound
+        this.validator.checkEntityExists(id);
         return this.ticketRepository.findById(id).get();
     }
 
@@ -26,20 +35,29 @@ public class TicketServiceImpl extends TicketService{
 
     @Override
     public Ticket save(Ticket instance) {
-        //TODO Validator notExists, Exception notSaved
+        this.validator.checkEntityNotExists(instance.getId());
         return this.ticketRepository.save(instance);
     }
 
     @Override
     public Ticket update(Ticket instance) {
-        //TODO Validator exists, Exception notFound, not Saved
+        this.validator.checkEntityExists(instance.getId());
         return this.ticketRepository.save(instance);
     }
 
     @Override
     public Long deleteById(Long id) {
-        //TODO Validator exists, Exception notFound, not Deleted
-        //TODO Relationships with deletion
-        return null;
+        this.validator.checkEntityExists(id);
+
+        Ticket toDelete = this.findById(id);
+
+        Set<TicketMessage> messagesOfTicketToDelete = toDelete.getMessagesOfTicket();
+
+        this.ticketRepository.deleteById(id);
+
+        messagesOfTicketToDelete
+                .forEach(ticketMessage -> this.ticketMessageRepository.deleteById(ticketMessage.getId()));
+
+        return id;
     }
 }

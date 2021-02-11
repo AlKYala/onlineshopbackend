@@ -2,6 +2,7 @@ package de.yalama.onlineshopbackend.Product.service;
 
 import de.yalama.onlineshopbackend.Product.model.Product;
 import de.yalama.onlineshopbackend.Product.repository.ProductRepository;
+import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +13,16 @@ import java.util.List;
 public class ProductServiceImpl extends ProductService{
 
     private ProductRepository productRepository;
+    private Validator<Product, ProductRepository> validator;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
+        this.validator = new Validator<Product, ProductRepository>("Product", this.productRepository);
     }
 
     @Override
     public Product findById(Long id) {
-        //TODO Validator exists, Exception notFound
+        this.validator.checkEntityExists(id);
         return this.productRepository.findById(id).get();
     }
 
@@ -30,20 +33,28 @@ public class ProductServiceImpl extends ProductService{
 
     @Override
     public Product save(Product instance) {
-        //TODO Validator notExists, Exception notSaved
+        this.validator.checkEntityNotExists(instance.getId());
         return this.productRepository.save(instance);
     }
 
     @Override
     public Product update(Product instance) {
-        //TODO Validator exists, Exception notFound, not Saved
+        this.validator.checkEntityExists(instance.getId());
         return this.productRepository.save(instance);
     }
 
     @Override
+    /**
+     * Only deleted when no ads for it exist
+     */
     public Long deleteById(Long id) {
-        //TODO Validator exists, Exception notFound, not Deleted
-        //TODO Relationships with deletion
+        this.validator.checkEntityExists(id);
+        Product toDelete = this.findById(id);
+        boolean adsForProductExist = !toDelete.getAdvertisementsOfProduct().isEmpty();
+        if(!adsForProductExist) {
+            this.productRepository.deleteById(id);
+            return id;
+        }
         return null;
     }
 }
