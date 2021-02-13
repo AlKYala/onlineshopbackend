@@ -52,8 +52,8 @@ public class AdvertisementServiceImpl extends AdvertisementService {
     }
 
     @Override
-    public Advertisement update(Advertisement instance) {
-        this.advertisementValidator.checkEntityExists(instance.getId());
+    public Advertisement update(Long id, Advertisement instance) {
+        this.advertisementValidator.checkCanUpdate(id, instance.getId());
         return this.advertisementRepository.save(instance);
     }
 

@@ -34,7 +34,7 @@ public interface BaseService<T> {
      * @param instance The instance to persist
      * @return The new persisted instance
      */
-    T update(T instance);
+    T update(Long id, T instance);
 
     /**
      * Deletes an instance of type T with matching id

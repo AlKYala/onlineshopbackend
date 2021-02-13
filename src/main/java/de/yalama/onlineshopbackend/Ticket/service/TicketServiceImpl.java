@@ -5,10 +5,14 @@ import de.yalama.onlineshopbackend.Message.ticketMessage.repository.TicketMessag
 import de.yalama.onlineshopbackend.Ticket.model.Ticket;
 import de.yalama.onlineshopbackend.Ticket.repository.TicketRepository;
 import de.yalama.onlineshopbackend.shared.service.Validator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
+@Service
+@Slf4j
 public class TicketServiceImpl extends TicketService{
 
     private TicketRepository ticketRepository;
@@ -40,8 +44,8 @@ public class TicketServiceImpl extends TicketService{
     }
 
     @Override
-    public Ticket update(Ticket instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public Ticket update(Long id, Ticket instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.ticketRepository.save(instance);
     }
 
