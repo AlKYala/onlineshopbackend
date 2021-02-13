@@ -135,4 +135,6 @@ public class UserServiceImpl extends UserService {
             this.privateMessageService.deleteIfBothUsersDeleted(privateMessage.getId());
         });
     }
+
+    //TODO Delete Rating
 }
