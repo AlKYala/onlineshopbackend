@@ -30,13 +30,13 @@ public class ProductController implements BaseController<Product, Long> {
 
     @Override
     @PostMapping
-    public Product create(Product product) {
+    public Product create(@RequestBody Product product) {
         return this.productService.save(product);
     }
 
     @Override
     @PutMapping("/{id}")
-    public Product update(Long id, Product product) {
+    public Product update(@PathVariable Long id, @RequestBody Product product) {
         return this.productService.update(id, product);
     }
 
