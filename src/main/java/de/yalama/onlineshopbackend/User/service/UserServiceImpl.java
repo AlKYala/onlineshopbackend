@@ -1,26 +1,24 @@
 package de.yalama.onlineshopbackend.User.service;
 
-import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Advertisement.repository.AdvertisementRepository;
 import de.yalama.onlineshopbackend.Message.privateMessage.model.PrivateMessage;
-import de.yalama.onlineshopbackend.Message.privateMessage.repository.PrivateMessageRepository;
 import de.yalama.onlineshopbackend.Message.privateMessage.service.PrivateMessageService;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.repository.PurchaseMessageRepository;
 import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
 import de.yalama.onlineshopbackend.Message.ticketMessage.repository.TicketMessageRepository;
-import de.yalama.onlineshopbackend.Pictures.repository.PictureRepository;
-import de.yalama.onlineshopbackend.Purchase.model.Purchase;
 import de.yalama.onlineshopbackend.Purchase.repository.PurchaseRepository;
-import de.yalama.onlineshopbackend.Ticket.model.Ticket;
-import de.yalama.onlineshopbackend.Ticket.repository.TicketRepository;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.User.repository.UserRepository;
 import de.yalama.onlineshopbackend.shared.service.Validator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
+@Service
+@Slf4j
 public class UserServiceImpl extends UserService {
 
     private UserRepository userRepository;
