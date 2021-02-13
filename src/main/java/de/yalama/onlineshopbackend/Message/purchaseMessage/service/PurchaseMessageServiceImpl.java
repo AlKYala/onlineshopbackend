@@ -42,8 +42,8 @@ public class PurchaseMessageServiceImpl extends PurchaseMessageService {
     }
 
     @Override
-    public PurchaseMessage update(PurchaseMessage instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public PurchaseMessage update(Long id, PurchaseMessage instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.purchaseMessageRepository.save(instance);
     }
 

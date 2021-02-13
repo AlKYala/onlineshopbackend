@@ -38,8 +38,8 @@ public class PurchaseServiceImpl extends PurchaseService {
     }
 
     @Override
-    public Purchase update(Purchase instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public Purchase update(Long id, Purchase instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.purchaseRepository.save(instance);
     }
 

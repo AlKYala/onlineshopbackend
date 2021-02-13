@@ -79,6 +79,14 @@ public class Validator<E extends BaseEntity, T extends JpaRepository> {
         }
     }
 
+    /**
+     * Written for updates in services. combines checkIDsAreIdentical and checkEntity exists for cleaner code
+     */
+    public void checkCanUpdate(Long id, Long id2) {
+        this.checkIDsAreIdentical(id, id2);
+        this.checkEntityExists(id2);
+    }
+
     public boolean checkStringIsNullOrBlank(String s) {
         return s == null || s.isBlank();
     }

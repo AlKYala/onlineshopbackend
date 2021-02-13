@@ -44,8 +44,8 @@ public class TicketMessageServiceImpl extends TicketMessageService {
     }
 
     @Override
-    public TicketMessage update(TicketMessage instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public TicketMessage update(Long id, TicketMessage instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.ticketMessageRepository.save(instance);
     }
 

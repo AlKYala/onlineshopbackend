@@ -36,10 +36,11 @@ public interface BaseController<T, E> {
      * PUT-Request
      * Used to update an instance with the same id
      * causes exception to be thrown by handling service if no instance of type T with same id is found
+     * @param id the id of the instance to update. has to match field id of t
      * @param t The instance to replace the old instance with same id
      * @return The updated instance
      */
-    T update(@RequestBody T t);
+    T update(@PathVariable E id, @RequestBody T t);
 
     /**
      * DELETE-Request

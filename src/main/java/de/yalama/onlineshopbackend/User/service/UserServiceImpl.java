@@ -64,8 +64,8 @@ public class UserServiceImpl extends UserService {
     }
 
     @Override
-    public User update(User instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public User update(Long id, User instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.userRepository.save(instance);
     }
 
@@ -116,4 +116,7 @@ public class UserServiceImpl extends UserService {
 
         return id;
     }
+
+
+
 }

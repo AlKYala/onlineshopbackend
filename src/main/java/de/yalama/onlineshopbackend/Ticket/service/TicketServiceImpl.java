@@ -40,8 +40,8 @@ public class TicketServiceImpl extends TicketService{
     }
 
     @Override
-    public Ticket update(Ticket instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public Ticket update(Long id, Ticket instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.ticketRepository.save(instance);
     }
 

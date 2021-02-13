@@ -44,8 +44,8 @@ public class PrivateMessageServiceImpl extends PrivateMessageService {
     }
 
     @Override
-    public PrivateMessage update(PrivateMessage instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public PrivateMessage update(Long id, PrivateMessage instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.privateMessageRepository.save(instance);
     }
 

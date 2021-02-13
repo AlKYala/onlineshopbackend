@@ -38,8 +38,8 @@ public class ProductServiceImpl extends ProductService{
     }
 
     @Override
-    public Product update(Product instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public Product update(Long id, Product instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.productRepository.save(instance);
     }
 

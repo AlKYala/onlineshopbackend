@@ -42,8 +42,8 @@ public class PictureServiceImpl extends PictureService {
     }
 
     @Override
-    public Picture update(Picture instance) {
-        this.validator.checkEntityExists(instance.getId());
+    public Picture update(Long id, Picture instance) {
+        this.validator.checkCanUpdate(id, instance.getId());
         return this.pictureRepository.save(instance);
     }
 
