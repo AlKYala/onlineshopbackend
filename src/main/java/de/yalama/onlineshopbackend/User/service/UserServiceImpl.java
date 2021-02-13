@@ -72,51 +72,69 @@ public class UserServiceImpl extends UserService {
     @Override
     public Long deleteById(Long id) {
         this.validator.checkEntityExists(id);
-
         User toDelete = this.findById(id);
+        this.deleteAdvertisements(toDelete);
+        this.deletePurchaseMessages(toDelete);
+        this.deleteReceivedPrivateMessages(toDelete);
+        this.deleteSentPrivateMessages(toDelete);
+        this.deleteSentTicketMessages(toDelete);
+        this.removeUserFromPurchaseMessagesAsSender(toDelete);
+        this.removeUserFromTickets(toDelete);
+        this.removeUserFromPurchasesAsBuyer(toDelete);
+        this.deleteById(id);
+        return id;
+    }
 
+    private void deleteAdvertisements(User toDelete) {
         toDelete.getSalesOfUser()
                 .forEach(advertisement -> this.advertisementRepository.deleteById(advertisement.getId()));
+    }
 
+    private void removeUserFromPurchasesAsBuyer(User toDelete) {
         toDelete.getPurchasesOfUser()
                 .forEach(purchase -> this.purchaseRepository.findById(purchase.getId()).get().setBuyer(null));
+    }
 
+    private void removeUserFromPurchaseMessagesAsSender(User toDelete) {
         toDelete.getMessagesInPurchases().forEach(purchaseMessage -> purchaseMessage.setSender(null));
+    }
 
+    private void removeUserFromTickets(User toDelete) {
         toDelete.getMessagesInTickets().forEach(ticketMessage -> ticketMessage.setWriter(null));
+    }
 
-        Set<PrivateMessage> receivedPrivateMessages = toDelete.getReceivedPrivateMessages();
-
-        Set<PrivateMessage> sentPrivateMessages = toDelete.getSentPrivateMessages();
-
+    private void deleteSentTicketMessages(User toDelete) {
         Set<TicketMessage> sentTicketMessages = toDelete.getMessagesInTickets();
-
-        Set<PurchaseMessage> purchaseMessages = toDelete.getMessagesInPurchases();
-
-        this.deleteById(id);
-
-        purchaseMessages.forEach(purchaseMessage -> {
-            this.purchaseMessageRepository.findById(id).get().setSender(null);
-            this.purchaseRepository.deleteById(purchaseMessage.getId());
-        });
 
         sentTicketMessages.forEach(ticketMessage -> {
             this.ticketMessageRepository.deleteById(ticketMessage.getId());
         });
+    }
 
-        sentPrivateMessages.forEach(privateMessage -> {
-            this.privateMessageService.findById(privateMessage.getId()).setSender(null);
-            this.privateMessageService.deleteIfBothUsersDeleted(privateMessage.getId());
+    private void deletePurchaseMessages(User toDelete) {
+        Set<PurchaseMessage> purchaseMessages = toDelete.getMessagesInPurchases();
+
+        purchaseMessages.forEach(purchaseMessage -> {
+            this.purchaseMessageRepository.findById(toDelete.getId()).get().setSender(null);
+            this.purchaseRepository.deleteById(purchaseMessage.getId());
         });
+    }
+
+    private void deleteReceivedPrivateMessages(User toDelete) {
+        Set<PrivateMessage> receivedPrivateMessages = toDelete.getReceivedPrivateMessages();
 
         receivedPrivateMessages.forEach(privateMessage -> {
             this.privateMessageService.findById(privateMessage.getId()).setReceiver(null);
             this.privateMessageService.deleteIfBothUsersDeleted(privateMessage.getId());
         });
-
-        return id;
     }
 
+    private void deleteSentPrivateMessages(User toDelete) {
+        Set<PrivateMessage> sentPrivateMessages = toDelete.getSentPrivateMessages();
 
-
+        sentPrivateMessages.forEach(privateMessage -> {
+            this.privateMessageService.findById(privateMessage.getId()).setSender(null);
+            this.privateMessageService.deleteIfBothUsersDeleted(privateMessage.getId());
+        });
+    }
 }
