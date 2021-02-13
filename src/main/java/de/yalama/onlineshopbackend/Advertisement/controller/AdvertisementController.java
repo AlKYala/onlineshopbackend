@@ -35,13 +35,14 @@ public class AdvertisementController implements BaseController<Advertisement, Lo
     }
 
     @Override
-    @PutMapping
+    @PutMapping("/{id}")
     public Advertisement update(@PathVariable Long id, @RequestBody Advertisement advertisement) {
         return this.advertisementService.update(id, advertisement);
     }
 
     @Override
-    public Long delete(Long id) {
+    @DeleteMapping("/{id}")
+    public Long delete(@PathVariable Long id) {
         return this.advertisementService.deleteById(id);
     }
 }
