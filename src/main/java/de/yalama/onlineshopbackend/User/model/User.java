@@ -7,6 +7,7 @@ import de.yalama.onlineshopbackend.Message.privateMessage.model.PrivateMessage;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage;
 import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;
+import de.yalama.onlineshopbackend.Rating.model.Rating;
 import de.yalama.onlineshopbackend.Ticket.model.Ticket;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
 import lombok.Getter;
@@ -28,6 +29,8 @@ public class User extends BaseEntity {
 
     @NotNull
     private String password;
+
+    private double rating;
 
     @NotNull
     @Column(unique = true)
@@ -64,4 +67,8 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy= "sender")
     @JsonIgnore
     private Set<PrivateMessage> sentPrivateMessages;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private Set<Rating> ratings;
 }

@@ -8,6 +8,7 @@ import de.yalama.onlineshopbackend.Message.purchaseMessage.repository.PurchaseMe
 import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
 import de.yalama.onlineshopbackend.Message.ticketMessage.repository.TicketMessageRepository;
 import de.yalama.onlineshopbackend.Purchase.repository.PurchaseRepository;
+import de.yalama.onlineshopbackend.Rating.repository.RatingRepository;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.User.repository.UserRepository;
 import de.yalama.onlineshopbackend.shared.service.Validator;
@@ -28,6 +29,7 @@ public class UserServiceImpl extends UserService {
     private TicketMessageRepository ticketMessageRepository;
     private PrivateMessageService privateMessageService;
     private AdvertisementRepository advertisementRepository;
+    private RatingRepository ratingRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            PurchaseRepository purchaseRepository,
@@ -79,6 +81,7 @@ public class UserServiceImpl extends UserService {
         this.removeUserFromPurchaseMessagesAsSender(toDelete);
         this.removeUserFromTickets(toDelete);
         this.removeUserFromPurchasesAsBuyer(toDelete);
+        this.deleteRatings(toDelete);
         this.deleteById(id);
         return id;
     }
@@ -134,5 +137,9 @@ public class UserServiceImpl extends UserService {
             this.privateMessageService.findById(privateMessage.getId()).setSender(null);
             this.privateMessageService.deleteIfBothUsersDeleted(privateMessage.getId());
         });
+    }
+
+    private void deleteRatings(User toDelete) {
+        toDelete.getRatings().forEach(rating -> this.ratingRepository.deleteById(rating.getId()));
     }
 }
