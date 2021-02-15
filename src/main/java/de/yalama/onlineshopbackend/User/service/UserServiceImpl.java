@@ -11,6 +11,7 @@ import de.yalama.onlineshopbackend.Purchase.repository.PurchaseRepository;
 import de.yalama.onlineshopbackend.Rating.repository.RatingRepository;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.User.repository.UserRepository;
+import de.yalama.onlineshopbackend.shared.models.exceptions.NotFoundException;
 import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,17 @@ public class UserServiceImpl extends UserService {
     @Override
     public List<User> findAll() {
         return this.userRepository.findAll();
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        User userWithEmail = this.findAll().stream().filter(user -> user.getEmail().equals(email)).findFirst().get();
+        if(userWithEmail == null) {
+            String errorMessage = String.format("No user with Email %s found", email);
+            log.error(errorMessage);
+            throw new NotFoundException(errorMessage);
+        }
+        return userWithEmail;
     }
 
     @Override
