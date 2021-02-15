@@ -21,18 +21,18 @@ public class LoginService {
 
     private final JwtUtil jwtTokenUtil;
 
-    public ResponseEntity<?> createAuthenticationToken(AuthenticationRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(AuthenticationRequest authenticationRequest) {
         this.checkIfPasswordIsCorrect(authenticationRequest.getEmail(), authenticationRequest.getPassword());
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
 
-    private void checkIfPasswordIsCorrect(String email, String password) throws Exception {
+    private void checkIfPasswordIsCorrect(String email, String password) {
         try {
             this.authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
         } catch (BadCredentialsException e){
-            throw new Exception("Incorrect username or password",e);
+            throw new RuntimeException("Incorrect username or password",e);
         }
     }
 }
