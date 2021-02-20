@@ -24,6 +24,8 @@ public class Advertisement extends BaseEntity {
 
     private String description;
 
+    private TypeOfAd typeOfAd;
+
     @ManyToOne
     @JoinColumn
     @EqualsAndHashCode.Exclude
