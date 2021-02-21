@@ -38,11 +38,6 @@ public class Purchase extends BaseEntity {
     @NotNull
     private User buyer;
 
-    @ManyToOne
-    @EqualsAndHashCode.Exclude
-    @JoinColumn
-    private User seller;
-
     @OneToMany(mappedBy = "purchaseOfMessage")
     @JsonIgnore
     private Set<PurchaseMessage> messagesInPurchase;
