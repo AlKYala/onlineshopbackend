@@ -1,16 +1,12 @@
 package de.yalama.onlineshopbackend.PaymentMethod.service;
 
-import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
-import de.yalama.onlineshopbackend.PaymentInformation.repository.PaymentInformationRepository;
 import de.yalama.onlineshopbackend.PaymentInformation.service.PaymentInformationService;
-import de.yalama.onlineshopbackend.PaymentInformation.service.PaymentInformationServiceImpl;
 import de.yalama.onlineshopbackend.PaymentMethod.model.PaymentMethod;
 import de.yalama.onlineshopbackend.PaymentMethod.repository.PaymentMethodRepository;
 import de.yalama.onlineshopbackend.shared.service.Validator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class PaymentMethodServiceImpl extends PaymentMethodService {
