@@ -6,6 +6,7 @@ import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Message.privateMessage.model.PrivateMessage;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage;
 import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
+import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;
 import de.yalama.onlineshopbackend.Rating.model.Rating;
 import de.yalama.onlineshopbackend.Ticket.model.Ticket;
@@ -71,4 +72,8 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<Rating> ratings;
+
+    @OneToMany(mappedBy = "seller")
+    @JsonIgnore
+    private Set<PaymentInformation> paymentInformation;
 }

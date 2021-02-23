@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage;
+import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
 import de.yalama.onlineshopbackend.Ticket.model.Ticket;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
-import de.yalama.onlineshopbackend.shared.models.PaymentMethod;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +24,10 @@ public class Purchase extends BaseEntity {
 
     private double price;
 
-    private PaymentMethod paymentMethod;
+    @ManyToOne
+    @JoinColumn
+    @EqualsAndHashCode.Exclude
+    private PaymentInformation paymentInformation;
 
     @ManyToOne
     @EqualsAndHashCode.Exclude

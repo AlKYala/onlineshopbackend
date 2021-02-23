@@ -7,6 +7,7 @@ import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage
 import de.yalama.onlineshopbackend.Message.purchaseMessage.repository.PurchaseMessageRepository;
 import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
 import de.yalama.onlineshopbackend.Message.ticketMessage.repository.TicketMessageRepository;
+import de.yalama.onlineshopbackend.PaymentInformation.repository.PaymentInformationRepository;
 import de.yalama.onlineshopbackend.Purchase.repository.PurchaseRepository;
 import de.yalama.onlineshopbackend.Rating.repository.RatingRepository;
 import de.yalama.onlineshopbackend.User.model.User;
@@ -31,13 +32,15 @@ public class UserServiceImpl extends UserService {
     private PrivateMessageService privateMessageService;
     private AdvertisementRepository advertisementRepository;
     private RatingRepository ratingRepository;
+    private PaymentInformationRepository paymentInformationRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            PurchaseRepository purchaseRepository,
                            PurchaseMessageRepository purchaseMessageRepository,
                            TicketMessageRepository ticketMessageRepository,
                            PrivateMessageService privateMessageService,
-                           AdvertisementRepository advertisementRepository) {
+                           AdvertisementRepository advertisementRepository,
+                           PaymentInformationRepository paymentInformationRepository) {
         this.userRepository = userRepository;
         this.validator = new Validator<User, UserRepository>("User", this.userRepository);
         this.purchaseRepository = purchaseRepository;
@@ -45,6 +48,7 @@ public class UserServiceImpl extends UserService {
         this.ticketMessageRepository = ticketMessageRepository;
         this.privateMessageService = privateMessageService;
         this.advertisementRepository = advertisementRepository;
+        this.paymentInformationRepository = paymentInformationRepository;
     }
 
     @Override
@@ -94,6 +98,7 @@ public class UserServiceImpl extends UserService {
         this.removeUserFromTickets(toDelete);
         this.removeUserFromPurchasesAsBuyer(toDelete);
         this.deleteRatings(toDelete);
+        this.deletePaymentInformation(toDelete);
         this.deleteById(id);
         return id;
     }
@@ -153,5 +158,10 @@ public class UserServiceImpl extends UserService {
 
     private void deleteRatings(User toDelete) {
         toDelete.getRatings().forEach(rating -> this.ratingRepository.deleteById(rating.getId()));
+    }
+
+    private void deletePaymentInformation(User toDelete) {
+        toDelete.getPaymentInformation().forEach(paymentInformation ->
+                this.paymentInformationRepository.deleteById(paymentInformation.getId()));
     }
 }
