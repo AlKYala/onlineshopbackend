@@ -15,6 +15,7 @@ import de.yalama.onlineshopbackend.User.repository.UserRepository;
 import de.yalama.onlineshopbackend.shared.models.exceptions.NotFoundException;
 import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class UserServiceImpl extends UserService {
     private AdvertisementRepository advertisementRepository;
     private RatingRepository ratingRepository;
     private PaymentInformationRepository paymentInformationRepository;
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
                            PurchaseRepository purchaseRepository,
@@ -40,7 +42,8 @@ public class UserServiceImpl extends UserService {
                            TicketMessageRepository ticketMessageRepository,
                            PrivateMessageService privateMessageService,
                            AdvertisementRepository advertisementRepository,
-                           PaymentInformationRepository paymentInformationRepository) {
+                           PaymentInformationRepository paymentInformationRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.validator = new Validator<User, UserRepository>("User", this.userRepository);
         this.purchaseRepository = purchaseRepository;
@@ -49,6 +52,7 @@ public class UserServiceImpl extends UserService {
         this.privateMessageService = privateMessageService;
         this.advertisementRepository = advertisementRepository;
         this.paymentInformationRepository = paymentInformationRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -75,6 +79,7 @@ public class UserServiceImpl extends UserService {
 
     @Override
     public User save(User instance) {
+        instance.setPassword(this.passwordEncoder.encode(instance.getPassword()));
         this.validator.checkEntityNotExists(instance.getId());
         return this.userRepository.save(instance);
     }
