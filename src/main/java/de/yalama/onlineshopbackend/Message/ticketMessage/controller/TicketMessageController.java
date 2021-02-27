@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/ticketMessage")
 public class TicketMessageController implements BaseController<TicketMessage, Long> {
 
