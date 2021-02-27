@@ -4,6 +4,7 @@ import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.User.service.UserService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,9 @@ public class UserController implements BaseController<User, Long> {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     @GetMapping
