@@ -29,8 +29,13 @@ public class UserController implements BaseController<User, Long> {
     }
 
     @Override
-    @PostMapping("/register")
+    @PostMapping
     public User create(@RequestBody User user) {
+        return this.userService.save(user);
+    }
+
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
         return this.userService.save(user);
     }
 
