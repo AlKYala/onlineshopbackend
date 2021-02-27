@@ -34,6 +34,11 @@ public class UserController implements BaseController<User, Long> {
         return this.userService.save(user);
     }
 
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+        return this.userService.save(user);
+    }
+
     @Override
     @PutMapping("/{id}")
     public User update(@PathVariable Long id, @RequestBody User user) {
