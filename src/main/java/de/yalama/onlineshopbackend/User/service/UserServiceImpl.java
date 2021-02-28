@@ -68,13 +68,14 @@ public class UserServiceImpl extends UserService {
 
     @Override
     public User findByEmail(String email) {
-        User userWithEmail = this.findAll().stream().filter(user -> user.getEmail().equals(email)).findFirst().get();
-        if(userWithEmail == null) {
-            String errorMessage = String.format("No user with Email %s found", email);
-            log.error(errorMessage);
-            throw new NotFoundException(errorMessage);
+        for(User user : this.findAll()) {
+            if(user.getEmail().equals(email)) {
+                return user;
+            }
         }
-        return userWithEmail;
+        String errorMessage = String.format("No user with Email %s found", email);
+        log.error(errorMessage);
+        throw new NotFoundException(errorMessage);
     }
 
     @Override

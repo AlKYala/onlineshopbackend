@@ -20,6 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         de.yalama.onlineshopbackend.User.model.User user = this.userService.findByEmail(email);
         return new org.springframework.security.core.userdetails.User
-                (user.getUsername(), user.getPassword(), Collections.emptyList());
+                (user.getEmail(), user.getPassword(), Collections.emptyList());
     }
 }
