@@ -73,9 +73,19 @@ public class UserServiceImpl extends UserService {
                 return user;
             }
         }
-        String errorMessage = String.format("No user with Email %s found", email);
-        log.error(errorMessage);
-        throw new NotFoundException(errorMessage);
+        throwNotFoundException("Email", email);
+        return null; //unreachable
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        for(User user: this.findAll()) {
+            if(user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        this.throwNotFoundException("Username", username);
+        return null; //unreachable
     }
 
     @Override
@@ -169,5 +179,11 @@ public class UserServiceImpl extends UserService {
     private void deletePaymentInformation(User toDelete) {
         toDelete.getPaymentInformation().forEach(paymentInformation ->
                 this.paymentInformationRepository.deleteById(paymentInformation.getId()));
+    }
+
+    private void throwNotFoundException(String type, String val) {
+        String message = String.format("No %s with %s %s found", type, type, val);
+        log.error(message);
+        throw new NotFoundException(message);
     }
 }

@@ -54,4 +54,14 @@ public class UserController implements BaseController<User, Long> {
     public Long delete(@PathVariable Long id) {
         return this.userService.deleteById(id);
     }
+
+    @GetMapping("email/{email}")
+    public User findByEmail(@PathVariable String email) {
+        return this.userService.findByEmail(email);
+    }
+
+    @GetMapping("username/{username}")
+    public User findByUsername(@PathVariable String username) {
+        return this.userService.findByUsername(username);
+    }
 }
