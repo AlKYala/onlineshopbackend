@@ -80,7 +80,7 @@ public class UserServiceImpl extends UserService {
     @Override
     public User findByUsername(String username) {
         for(User user: this.findAll()) {
-            if(user.getUsername().equals(username)) {
+            if(user.getUsername() != null && user.getUsername().equals(username)) {
                 return user;
             }
         }
