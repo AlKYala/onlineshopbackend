@@ -60,8 +60,18 @@ public class UserController implements BaseController<User, Long> {
         return this.userService.findByEmail(email);
     }
 
+    @GetMapping("email/isTaken/{email}")
+    public Boolean isEmailTaken(@PathVariable String email) {
+        return this.userService.findByEmail(email) != null;
+    }
+
     @GetMapping("username/{username}")
     public User findByUsername(@PathVariable String username) {
         return this.userService.findByUsername(username);
+    }
+
+    @GetMapping("username/isTaken/{username}")
+    public Boolean isUsernameTaken(@PathVariable String username) {
+        return this.userService.findByUsername(username) != null;
     }
 }
