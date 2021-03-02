@@ -3,9 +3,9 @@ package de.yalama.onlineshopbackend.User.controller;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.User.service.UserService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import de.yalama.onlineshopbackend.shared.models.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,23 +55,33 @@ public class UserController implements BaseController<User, Long> {
         return this.userService.deleteById(id);
     }
 
-    @GetMapping("email/{email}")
+    @GetMapping("/email/{email}")
     public User findByEmail(@PathVariable String email) {
         return this.userService.findByEmail(email);
     }
 
-    @GetMapping("email/isTaken/{email}")
+    @GetMapping("/email/isTaken/{email}")
     public Boolean isEmailTaken(@PathVariable String email) {
-        return this.userService.findByEmail(email) != null;
+        try {
+            this.userService.findByEmail(email);
+        } catch (NotFoundException e) {
+            return false;
+        }
+        return true;
     }
 
-    @GetMapping("username/{username}")
+    @GetMapping("/username/{username}")
     public User findByUsername(@PathVariable String username) {
         return this.userService.findByUsername(username);
     }
 
-    @GetMapping("username/isTaken/{username}")
+    @GetMapping("/username/isTaken/{username}")
     public Boolean isUsernameTaken(@PathVariable String username) {
-        return this.userService.findByUsername(username) != null;
+        try {
+            this.userService.findByUsername(username);
+        } catch (NotFoundException e) {
+            return false;
+        }
+        return true;
     }
 }
