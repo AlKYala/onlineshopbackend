@@ -15,6 +15,7 @@ import de.yalama.onlineshopbackend.User.repository.UserRepository;
 import de.yalama.onlineshopbackend.shared.models.exceptions.NotFoundException;
 import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class UserServiceImpl extends UserService {
     private AdvertisementRepository advertisementRepository;
     private RatingRepository ratingRepository;
     private PaymentInformationRepository paymentInformationRepository;
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
                            PurchaseRepository purchaseRepository,
@@ -40,7 +42,8 @@ public class UserServiceImpl extends UserService {
                            TicketMessageRepository ticketMessageRepository,
                            PrivateMessageService privateMessageService,
                            AdvertisementRepository advertisementRepository,
-                           PaymentInformationRepository paymentInformationRepository) {
+                           PaymentInformationRepository paymentInformationRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.validator = new Validator<User, UserRepository>("User", this.userRepository);
         this.purchaseRepository = purchaseRepository;
@@ -49,6 +52,7 @@ public class UserServiceImpl extends UserService {
         this.privateMessageService = privateMessageService;
         this.advertisementRepository = advertisementRepository;
         this.paymentInformationRepository = paymentInformationRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -64,17 +68,29 @@ public class UserServiceImpl extends UserService {
 
     @Override
     public User findByEmail(String email) {
-        User userWithEmail = this.findAll().stream().filter(user -> user.getEmail().equals(email)).findFirst().get();
-        if(userWithEmail == null) {
-            String errorMessage = String.format("No user with Email %s found", email);
-            log.error(errorMessage);
-            throw new NotFoundException(errorMessage);
+        for(User user : this.findAll()) {
+            if(user.getEmail().equals(email)) {
+                return user;
+            }
         }
-        return userWithEmail;
+        throwNotFoundException("Email", email);
+        return null; //unreachable
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        for(User user: this.findAll()) {
+            if(user.getUsername() != null && user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        this.throwNotFoundException("Username", username);
+        return null; //unreachable
     }
 
     @Override
     public User save(User instance) {
+        instance.setPassword(this.passwordEncoder.encode(instance.getPassword()));
         this.validator.checkEntityNotExists(instance.getId());
         return this.userRepository.save(instance);
     }
@@ -163,5 +179,11 @@ public class UserServiceImpl extends UserService {
     private void deletePaymentInformation(User toDelete) {
         toDelete.getPaymentInformation().forEach(paymentInformation ->
                 this.paymentInformationRepository.deleteById(paymentInformation.getId()));
+    }
+
+    private void throwNotFoundException(String type, String val) {
+        String message = String.format("No %s with %s %s found", type, type, val);
+        log.error(message);
+        throw new NotFoundException(message);
     }
 }

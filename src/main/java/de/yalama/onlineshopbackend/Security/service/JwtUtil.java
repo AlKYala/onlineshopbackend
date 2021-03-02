@@ -71,6 +71,7 @@ public class JwtUtil {
         claims.put("isBanned", user.isBanned());
         claims.put("isConfirmed", user.isEmailConfirmed());
         claims.put("email", user.getEmail());
+        claims.put("username", user.getUsername());
         return createToken(claims, userDetails.getUsername());
     }
 
