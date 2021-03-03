@@ -3,6 +3,7 @@ package de.yalama.onlineshopbackend.Product.controller;
 import de.yalama.onlineshopbackend.Product.model.Product;
 import de.yalama.onlineshopbackend.Product.service.ProductService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController implements BaseController<Product, Long> {
 
     @Autowired

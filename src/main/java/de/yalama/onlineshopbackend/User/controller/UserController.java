@@ -4,6 +4,7 @@ import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.User.service.UserService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
 import de.yalama.onlineshopbackend.shared.models.exceptions.NotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController implements BaseController<User, Long> {
 
     @Autowired

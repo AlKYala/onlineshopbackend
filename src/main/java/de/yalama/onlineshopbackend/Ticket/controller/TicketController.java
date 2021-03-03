@@ -3,14 +3,15 @@ package de.yalama.onlineshopbackend.Ticket.controller;
 import de.yalama.onlineshopbackend.Ticket.model.Ticket;
 import de.yalama.onlineshopbackend.Ticket.service.TicketService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/ticket")
+@RequiredArgsConstructor
 public class TicketController implements BaseController<Ticket, Long> {
 
     @Autowired

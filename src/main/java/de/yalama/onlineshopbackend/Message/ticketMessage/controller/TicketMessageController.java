@@ -3,6 +3,7 @@ package de.yalama.onlineshopbackend.Message.ticketMessage.controller;
 import de.yalama.onlineshopbackend.Message.ticketMessage.model.TicketMessage;
 import de.yalama.onlineshopbackend.Message.ticketMessage.service.TicketMessageService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ticketMessage")
+@RequiredArgsConstructor
 public class TicketMessageController implements BaseController<TicketMessage, Long> {
 
     @Autowired

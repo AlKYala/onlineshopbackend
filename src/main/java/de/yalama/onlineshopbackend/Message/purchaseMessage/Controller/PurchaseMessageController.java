@@ -3,6 +3,7 @@ package de.yalama.onlineshopbackend.Message.purchaseMessage.Controller;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.model.PurchaseMessage;
 import de.yalama.onlineshopbackend.Message.purchaseMessage.service.PurchaseMessageService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/purchaseMessage")
+@RequiredArgsConstructor
 public class PurchaseMessageController implements BaseController<PurchaseMessage, Long> {
 
     @Autowired

@@ -3,6 +3,7 @@ package de.yalama.onlineshopbackend.Message.privateMessage.Controller;
 import de.yalama.onlineshopbackend.Message.privateMessage.model.PrivateMessage;
 import de.yalama.onlineshopbackend.Message.privateMessage.service.PrivateMessageService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pm")
+@RequiredArgsConstructor
 public class PrivateMessageController implements BaseController<PrivateMessage, Long> {
 
     @Autowired
