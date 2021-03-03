@@ -2,6 +2,7 @@ package de.yalama.onlineshopbackend.Advertisement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import de.yalama.onlineshopbackend.Category.model.Category;
 import de.yalama.onlineshopbackend.Product.model.Product;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;
 import de.yalama.onlineshopbackend.User.model.User;
@@ -24,11 +25,12 @@ public class Advertisement extends BaseEntity {
 
     private String description;
 
-    private TypeOfAd typeOfAd;
-
     @NotNull
     private double price;
 
+    /**
+     * Note: In Frontend Ads are filtered by category by Advertisement::getProduct.getCategory()
+     */
     @ManyToOne
     @JoinColumn
     @EqualsAndHashCode.Exclude
