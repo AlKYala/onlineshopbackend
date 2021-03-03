@@ -50,4 +50,11 @@ public class Advertisement extends BaseEntity {
     @OneToMany(mappedBy = "advertisementOfImage", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Picture> picturesOfAdvertisement;
+
+    /** ONLY USED WHEN AD IS FEATURED ON THE HOMEPAGE  */
+    private boolean featured;
+
+    private String featuredTitle;
+
+    private String featuredDescription;
 }
