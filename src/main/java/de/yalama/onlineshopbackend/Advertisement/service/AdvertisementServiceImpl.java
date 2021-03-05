@@ -3,7 +3,7 @@ package de.yalama.onlineshopbackend.Advertisement.service;
 import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Advertisement.repository.AdvertisementRepository;
 import de.yalama.onlineshopbackend.Pictures.repository.PictureRepository;
-import de.yalama.onlineshopbackend.Product.repository.ProductRepository;
+import de.yalama.onlineshopbackend.Marke.repository.MarkeRepository;
 import de.yalama.onlineshopbackend.Purchase.repository.PurchaseRepository;
 import de.yalama.onlineshopbackend.User.repository.UserRepository;
 import de.yalama.onlineshopbackend.shared.service.Validator;
@@ -20,13 +20,13 @@ public class AdvertisementServiceImpl extends AdvertisementService {
     private Validator<Advertisement, AdvertisementRepository> advertisementValidator;
     private PictureRepository pictureRepository;
     private PurchaseRepository purchaseRepository;
-    private ProductRepository productRepository;
+    private MarkeRepository markeRepository;
     private UserRepository userRepository;
 
     public AdvertisementServiceImpl(AdvertisementRepository advertisementRepository,
                                     PictureRepository pictureRepository,
                                     PurchaseRepository purchaseRepository,
-                                    ProductRepository productRepository,
+                                    MarkeRepository markeRepository,
                                     UserRepository userRepository) {
         this.advertisementRepository = advertisementRepository;
         this.advertisementValidator = new Validator<Advertisement, AdvertisementRepository>("Advertisement",
@@ -63,7 +63,7 @@ public class AdvertisementServiceImpl extends AdvertisementService {
 
         Advertisement toDelete = this.findById(id);
 
-        toDelete.getProduct().getAdvertisementsOfProduct()
+        toDelete.getMarke().getAdvertisementsOfMarke()
                 .removeIf(advertisement -> advertisement.getId() == toDelete.getId());
         toDelete.getSeller().getSalesOfUser()
                 .removeIf(advertisement -> advertisement.getId() == toDelete.getId());

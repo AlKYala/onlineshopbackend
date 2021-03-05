@@ -2,8 +2,7 @@ package de.yalama.onlineshopbackend.Advertisement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import de.yalama.onlineshopbackend.Category.model.Category;
-import de.yalama.onlineshopbackend.Product.model.Product;
+import de.yalama.onlineshopbackend.Marke.model.Marke;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.Pictures.model.Picture;
@@ -29,13 +28,13 @@ public class Advertisement extends BaseEntity {
     private double price;
 
     /**
-     * Note: In Frontend Ads are filtered by category by Advertisement::getProduct.getCategory()
+     * Note: In Frontend Ads are filtered by category by Advertisement::getMarke.getCategory()
      */
     @ManyToOne
     @JoinColumn
     @EqualsAndHashCode.Exclude
     @NotNull
-    private Product product;
+    private Marke marke;
 
     @ManyToOne
     @JoinColumn
@@ -57,4 +56,6 @@ public class Advertisement extends BaseEntity {
     private String featuredTitle;
 
     private String featuredDescription;
+
+    private String featuredPictureUrl;
 }

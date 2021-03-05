@@ -1,4 +1,4 @@
-package de.yalama.onlineshopbackend.Product.model;
+package de.yalama.onlineshopbackend.Marke.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
@@ -18,14 +18,14 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
-public class Product extends BaseEntity {
+public class Marke extends BaseEntity {
 
     @NotNull
     public String name;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "marke")
     @JsonIgnore
-    private Set<Advertisement> advertisementsOfProduct;
+    private Set<Advertisement> advertisementsOfMarke;
 
     @ManyToOne
     @EqualsAndHashCode.Exclude

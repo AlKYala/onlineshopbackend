@@ -2,9 +2,8 @@ package de.yalama.onlineshopbackend.Category.service;
 
 import de.yalama.onlineshopbackend.Category.model.Category;
 import de.yalama.onlineshopbackend.Category.repository.CategoryRepository;
-import de.yalama.onlineshopbackend.Product.model.Product;
-import de.yalama.onlineshopbackend.Product.repository.ProductRepository;
-import de.yalama.onlineshopbackend.Product.service.ProductService;
+import de.yalama.onlineshopbackend.Marke.model.Marke;
+import de.yalama.onlineshopbackend.Marke.service.MarkeService;
 import de.yalama.onlineshopbackend.shared.service.Validator;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +15,13 @@ public class CategoryServiceImpl extends CategoryService {
 
     private CategoryRepository categoryRepository;
     private Validator<Category, CategoryRepository> validator;
-    private ProductService productService;
+    private MarkeService markeService;
 
     public CategoryServiceImpl(CategoryRepository categoryRepository,
-                               ProductService productService) {
+                               MarkeService markeService) {
         this.validator = new Validator<Category, CategoryRepository>("Category", categoryRepository);
         this.categoryRepository = categoryRepository;
-        this.productService = productService;
+        this.markeService = markeService;
     }
 
     @Override
@@ -55,10 +54,10 @@ public class CategoryServiceImpl extends CategoryService {
     public Long deleteById(Long id) {
         this.validator.checkEntityExists(id);
         Category toDelete = this.findById(id);
-        Set<Product> productsOfCategory = toDelete.getProductsOfCategory();
+        Set<Marke> productsOfCategory = toDelete.getProductsOfCategory();
 
-        for(Product productToDelete : productsOfCategory) {
-            this.productService.deleteById(productToDelete.getId());
+        for(Marke markeToDelete : productsOfCategory) {
+            this.markeService.deleteById(markeToDelete.getId());
         }
 
         this.categoryRepository.deleteById(id);

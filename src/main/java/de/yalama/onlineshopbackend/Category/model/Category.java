@@ -2,7 +2,7 @@ package de.yalama.onlineshopbackend.Category.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import de.yalama.onlineshopbackend.Product.model.Product;
+import de.yalama.onlineshopbackend.Marke.model.Marke;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +17,9 @@ import java.util.Set;
 public class Category extends BaseEntity {
 
     @NotNull
-    private String category;
+    private String name;
 
     @OneToMany(mappedBy = "category")
     @JsonIgnore
-    private Set<Product> productsOfCategory;
+    private Set<Marke> productsOfCategory;
 }
