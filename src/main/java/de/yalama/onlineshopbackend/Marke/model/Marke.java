@@ -23,6 +23,8 @@ public class Marke extends BaseEntity {
     @NotNull
     public String name;
 
+    public String markenPicUrl;
+
     @OneToMany(mappedBy = "marke")
     @JsonIgnore
     private Set<Advertisement> advertisementsOfMarke;
