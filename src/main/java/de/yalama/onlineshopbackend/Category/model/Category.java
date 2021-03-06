@@ -1,8 +1,8 @@
-package de.yalama.onlineshopbackend.Product.model;
+package de.yalama.onlineshopbackend.Category.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
+import de.yalama.onlineshopbackend.Marke.model.Marke;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,14 +12,14 @@ import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity
-@Setter
 @Getter
-public class Product extends BaseEntity {
+@Setter
+public class Category extends BaseEntity {
 
     @NotNull
-    public String name;
+    private String name;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "category")
     @JsonIgnore
-    private Set<Advertisement> advertisementsOfProduct;
+    private Set<Marke> productsOfCategory;
 }

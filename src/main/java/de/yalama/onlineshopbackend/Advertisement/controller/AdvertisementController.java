@@ -3,6 +3,7 @@ package de.yalama.onlineshopbackend.Advertisement.controller;
 import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Advertisement.service.AdvertisementService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ad")
+@RequiredArgsConstructor
 public class AdvertisementController implements BaseController<Advertisement, Long> {
 
     @Autowired

@@ -3,6 +3,7 @@ package de.yalama.onlineshopbackend.Rating.controller;
 import de.yalama.onlineshopbackend.Rating.model.Rating;
 import de.yalama.onlineshopbackend.Rating.service.RatingService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rating")
+@RequiredArgsConstructor
 public class RatingController implements BaseController<Rating, Long> {
 
     @Autowired

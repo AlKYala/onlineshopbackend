@@ -2,6 +2,7 @@ package de.yalama.onlineshopbackend.Security.controller;
 
 import de.yalama.onlineshopbackend.Security.model.AuthenticationRequest;
 import de.yalama.onlineshopbackend.Security.service.LoginService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static de.yalama.onlineshopbackend.Security.SecurityConstants.SIGN_UP_ENDPOINT;
 
 @RestController
+@RequiredArgsConstructor
 public class LoginController {
 
     @Autowired
