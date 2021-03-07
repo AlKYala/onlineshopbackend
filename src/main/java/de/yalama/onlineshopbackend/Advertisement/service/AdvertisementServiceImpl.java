@@ -6,11 +6,13 @@ import de.yalama.onlineshopbackend.Pictures.repository.PictureRepository;
 import de.yalama.onlineshopbackend.Marke.repository.MarkeRepository;
 import de.yalama.onlineshopbackend.Purchase.repository.PurchaseRepository;
 import de.yalama.onlineshopbackend.User.repository.UserRepository;
+import de.yalama.onlineshopbackend.shared.models.SearchQuery;
 import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Service
@@ -76,5 +78,13 @@ public class AdvertisementServiceImpl extends AdvertisementService {
 
         this.advertisementRepository.deleteById(id);
         return id;
+    }
+
+    @Override
+    public Advertisement[] filter(SearchQuery searchQuery) {
+        Advertisement[] allAds = this.findAll().toArray(new Advertisement[this.findAll().size()]);
+        AtomicInteger countdeleted = new AtomicInteger(0);
+        searchQuery.filter(allAds, countdeleted);
+        return searchQuery.getRemainingAds(allAds, countdeleted);
     }
 }
