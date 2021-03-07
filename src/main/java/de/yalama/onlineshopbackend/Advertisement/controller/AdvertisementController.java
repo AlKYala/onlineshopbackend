@@ -53,4 +53,11 @@ public class AdvertisementController implements BaseController<Advertisement, Lo
     public Advertisement[] getFilteredAds(@RequestBody SearchQuery searchQuery) {
         return this.advertisementService.filter(searchQuery);
     }
+
+    @GetMapping("/featured")
+    public Advertisement[] getFeaturedAds() {
+        SearchQuery featuredQuery = new SearchQuery();
+        featuredQuery.setFeatured(true);
+        return this.advertisementService.filter(featuredQuery);
+    }
 }
