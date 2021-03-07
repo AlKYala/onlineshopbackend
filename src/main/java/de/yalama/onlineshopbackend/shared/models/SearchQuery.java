@@ -37,15 +37,44 @@ public class SearchQuery {
      * Sets advertisements null that do no match the query
      * AtomicInteger shared by all filter methods to count the number of deleted ads for easier assembly later
      */
-    private void filter(Advertisement[] ads, AtomicInteger deleted) {
+    public void filter(Advertisement[] ads, AtomicInteger deleted) {
         for(int i = 0; i < ads.length; i++) {
             if(ads[i] == null) {
                 continue;
             }
             Advertisement tempAd = ads[i];
             boolean matchesPrice = this.matchesPrice(tempAd);
-            boolean matchesCategory
+
+            boolean matchesMarke = this.matchesMarke(tempAd);
+
+            boolean matchesCategory = this.matchesCategory(tempAd);
+
+            if(!matchesPrice || !matchesMarke || !matchesCategory) {
+                ads[i] = null;
+                deleted.incrementAndGet();
+                continue;
+            }
+
+            boolean matchesTerms = this.adContainsSearchTerm(tempAd);
+
+            if(!matchesTerms) {
+                deleted.incrementAndGet();
+                ads[i] = null;
+            }
+
         }
+    }
+
+    public Advertisement[] getRemainingAds(Advertisement[] filtered, AtomicInteger deleted) {
+        Advertisement[] remainingAds = new Advertisement[filtered.length - deleted.get()];
+        int rIndex = 0;
+        for(Advertisement ad: filtered) {
+            if(ad != null) {
+                remainingAds[rIndex] = ad;
+                rIndex++;
+            }
+        }
+        return remainingAds;
     }
 
     private boolean matchesCategory(Advertisement ad) {
