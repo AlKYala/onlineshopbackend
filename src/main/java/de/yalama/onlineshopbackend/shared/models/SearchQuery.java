@@ -90,6 +90,9 @@ public class SearchQuery {
     }
 
     private boolean adContainsSearchTerm(Advertisement ad) {
+        if(this.terms == null || this.terms.length() == 0) {
+            return true;
+        }
         String[] adTerms = String.format("%s %s", ad.getTitle(), ad.getDescription()).toLowerCase().split(" ");
         for(String term: adTerms) {
             if(this.searchTermsSet.contains(term)) {
