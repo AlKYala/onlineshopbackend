@@ -86,14 +86,22 @@ public class SearchQuery {
     }
 
     private boolean matchesPrice(Advertisement ad) {
-        return ad.getPrice() <= this.getMaxPrice() && ad.getPrice() >= this.getMinPrice();
+        Integer maxPrice = (this.getMaxPrice() == null) ? 1000000 : this.getMaxPrice();
+        Integer minPrice = (this.getMinPrice() == null) ? 0 : this.getMinPrice();
+        return ad.getPrice() <= maxPrice && ad.getPrice() >= minPrice;
     }
 
     private boolean adContainsSearchTerm(Advertisement ad) {
+        if(this.searchTermsSet == null) {
+            this.feedSearchTermsToSet();
+        }
         if(this.terms == null || this.terms.length() == 0) {
             return true;
         }
-        String[] adTerms = String.format("%s %s", ad.getTitle(), ad.getDescription()).toLowerCase().split(" ");
+        String title = (ad.getTitle() == null) ? "" : ad.getTitle();
+        String descritpion = (ad.getDescription() == null) ? "" : ad.getTitle();
+
+        String[] adTerms = String.format("%s %s", title, descritpion).toLowerCase().split(" ");
         for(String term: adTerms) {
             if(this.searchTermsSet.contains(term)) {
                 return true;
