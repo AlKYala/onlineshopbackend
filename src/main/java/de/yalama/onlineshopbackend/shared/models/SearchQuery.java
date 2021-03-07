@@ -22,6 +22,7 @@ public class SearchQuery {
     private Set<String> searchTermsSet;
     private Long categoryId;
     private Long markeId;
+    private Boolean featured;
 
     public void feedSearchTermsToSet() {
         if(this.terms != null) {
@@ -49,7 +50,9 @@ public class SearchQuery {
 
             boolean matchesCategory = this.matchesCategory(tempAd);
 
-            if(!matchesPrice || !matchesMarke || !matchesCategory) {
+            boolean matchesFeature = (!featured) ? true : tempAd.isFeatured();
+
+            if(!matchesPrice || !matchesMarke || !matchesCategory || !matchesFeature) {
                 ads[i] = null;
                 deleted.incrementAndGet();
                 continue;
