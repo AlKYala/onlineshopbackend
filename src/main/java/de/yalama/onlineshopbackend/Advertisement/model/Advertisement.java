@@ -56,6 +56,6 @@ public class Advertisement extends BaseEntity {
     private String featuredTitle;
 
     private String featuredDescription;
-
+    @NotNull
     private String featuredPictureUrl;
 }
