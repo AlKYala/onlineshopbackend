@@ -3,6 +3,7 @@ package de.yalama.onlineshopbackend.Advertisement.controller;
 import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Advertisement.service.AdvertisementService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
+import de.yalama.onlineshopbackend.shared.models.SearchQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,5 +47,10 @@ public class AdvertisementController implements BaseController<Advertisement, Lo
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {
         return this.advertisementService.deleteById(id);
+    }
+
+    @PostMapping("/filter")
+    public Advertisement[] getFilteredAds(@RequestBody SearchQuery searchQuery) {
+        return this.advertisementService.filter(searchQuery);
     }
 }

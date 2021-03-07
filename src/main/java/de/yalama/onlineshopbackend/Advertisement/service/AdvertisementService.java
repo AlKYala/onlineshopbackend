@@ -6,5 +6,5 @@ import de.yalama.onlineshopbackend.shared.service.BaseService;
 
 public abstract class AdvertisementService implements BaseService<Advertisement> {
 
-    abstract Advertisement[] filter(SearchQuery searchQuery);
+    public abstract Advertisement[] filter(SearchQuery searchQuery);
 }
