@@ -50,7 +50,7 @@ public class SearchQuery {
 
             boolean matchesCategory = this.matchesCategory(tempAd);
 
-            boolean matchesFeature = (!featured) ? true : tempAd.isFeatured();
+            boolean matchesFeature = (featured == null || !featured) ? true : tempAd.isFeatured();
 
             if(!matchesPrice || !matchesMarke || !matchesCategory || !matchesFeature) {
                 ads[i] = null;
@@ -58,7 +58,7 @@ public class SearchQuery {
                 continue;
             }
 
-            boolean matchesTerms = this.adContainsSearchTerm(tempAd);
+            boolean matchesTerms = (this.getTerms() == null) ? true : this.adContainsSearchTerm(tempAd);
 
             if(!matchesTerms) {
                 deleted.incrementAndGet();
