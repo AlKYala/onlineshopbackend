@@ -1,5 +1,6 @@
 package de.yalama.onlineshopbackend.Pictures.controller;
 
+import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Pictures.model.Picture;
 import de.yalama.onlineshopbackend.Pictures.service.PictureService;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
@@ -46,5 +47,15 @@ public class PictureController implements BaseController<Picture, Long> {
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {
         return this.pictureService.deleteById(id);
+    }
+
+    @GetMapping("/advertisement")
+    public List<Picture> findAllByAdvertisement(@RequestBody Advertisement advertisement) {
+        return this.pictureService.findPicturesByAd(advertisement);
+    }
+
+    @GetMapping("/advertisement/{id}")
+    public List<Picture> findAllByAdvertisementId(@PathVariable Long id) {
+        return this.pictureService.findPicturesByAdId(id);
     }
 }
