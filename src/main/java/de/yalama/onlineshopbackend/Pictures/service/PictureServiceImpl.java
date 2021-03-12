@@ -1,5 +1,6 @@
 package de.yalama.onlineshopbackend.Pictures.service;
 
+import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.Advertisement.repository.AdvertisementRepository;
 import de.yalama.onlineshopbackend.Pictures.model.Picture;
 import de.yalama.onlineshopbackend.Pictures.repository.PictureRepository;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -58,5 +60,18 @@ public class PictureServiceImpl extends PictureService {
             return id;
         }
         return null;
+    }
+
+    @Override
+    public List<Picture> findPicturesByAd(Advertisement advertisement) {
+        return this.findPicturesByAdId(advertisement.getId());
+    }
+
+    @Override
+    public List<Picture> findPicturesByAdId(Long adId) {
+        return this.findAll()
+                .stream()
+                .filter(picture -> picture.getAdvertisementOfImage().getId() == adId)
+                .collect(Collectors.toList());
     }
 }
