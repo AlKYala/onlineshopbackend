@@ -33,7 +33,7 @@ public class CartItemServiceImpl extends CartItemService {
 
     @Override
     public List<CartItem> findByUserId(Long id) {
-        return this.findAll().stream().filter(cartItem -> cartItem.getId() == id).collect(Collectors.toList());
+        return this.findAll().stream().filter(cartItem -> cartItem.getUser().getId() == id).collect(Collectors.toList());
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CartItemServiceImpl extends CartItemService {
 
     @Override
     public List<CartItem> findByAdvertisementId(Long id) {
-        return this.findAll().stream().filter(cartItem -> cartItem.getId() == id).collect(Collectors.toList());
+        return this.findAll().stream().filter(cartItem -> cartItem.getUser().getId() == id).collect(Collectors.toList());
     }
 
     @Override

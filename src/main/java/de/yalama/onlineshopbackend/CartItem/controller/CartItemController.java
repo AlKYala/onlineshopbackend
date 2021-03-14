@@ -49,22 +49,22 @@ public class CartItemController implements BaseController<CartItem, Long> {
         return this.cartItemService.deleteById(id);
     }
 
-    @GetMapping("/cart/user")
+    @GetMapping("/user")
     public List<CartItem> findAllByUser(@RequestBody User user) {
         return this.cartItemService.findByUser(user);
     }
 
-    @GetMapping("/cart/user/{id}")
+    @GetMapping("/user/{id}")
     public List<CartItem> findAllByUserId(@PathVariable Long id) {
         return this.cartItemService.findByUserId(id);
     }
 
-    @GetMapping("/cart/ad")
+    @GetMapping("/ad")
     public List<CartItem> findAllByAdvertisement(@RequestBody Advertisement advertisement) {
         return this.cartItemService.findByAdvertisement(advertisement);
     }
 
-    @GetMapping("/cart/ad/{id}")
+    @GetMapping("/ad/{id}")
     public List<CartItem> findAllByAdvertisementId(@PathVariable Long id) {
         return this.cartItemService.findByAdvertisementId(id);
     }
