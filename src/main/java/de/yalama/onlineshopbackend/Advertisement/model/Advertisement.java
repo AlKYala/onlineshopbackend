@@ -2,6 +2,7 @@ package de.yalama.onlineshopbackend.Advertisement.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import de.yalama.onlineshopbackend.CartItem.model.CartItem;
 import de.yalama.onlineshopbackend.Marke.model.Marke;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;
 import de.yalama.onlineshopbackend.User.model.User;
@@ -49,6 +50,10 @@ public class Advertisement extends BaseEntity {
     @OneToMany(mappedBy = "advertisementOfImage", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Picture> picturesOfAdvertisement;
+
+    @OneToMany(mappedBy="advertisement", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<CartItem> instancesInCartItems;
 
     /** ONLY USED WHEN AD IS FEATURED ON THE HOMEPAGE  */
     private boolean featured;
