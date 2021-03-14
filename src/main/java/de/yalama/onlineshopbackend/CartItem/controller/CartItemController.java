@@ -68,4 +68,9 @@ public class CartItemController implements BaseController<CartItem, Long> {
     public List<CartItem> findAllByAdvertisementId(@PathVariable Long id) {
         return this.cartItemService.findByAdvertisementId(id);
     }
+
+    @GetMapping("/user/price/{id}")
+    public Double getPriceOfUserCartById(@PathVariable Long id) {
+        return this.cartItemService.findCartPriceByUserId(id);
+    }
 }

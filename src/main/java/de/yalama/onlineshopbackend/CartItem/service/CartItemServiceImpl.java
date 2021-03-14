@@ -52,6 +52,15 @@ public class CartItemServiceImpl extends CartItemService {
     }
 
     @Override
+    public Double findCartPriceByUserId(Long id) {
+        Double sum = 0.0;
+        for(CartItem item : this.findByUserId(id)) {
+            sum += (item.getAdvertisement().getPrice() * item.getQuantity());
+        }
+        return sum;
+    }
+
+    @Override
     public CartItem findById(Long id) {
         this.validator.checkEntityExists(id);
         return this.cartItemRepository.findById(id).get();

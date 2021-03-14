@@ -15,4 +15,6 @@ public abstract class CartItemService implements BaseService<CartItem> {
     public abstract List<CartItem> findByAdvertisementId(Long id);
 
     public abstract List<CartItem> findByAdvertisement(Advertisement advertisement);
+
+    public abstract Double findCartPriceByUserId(Long id);
 }
