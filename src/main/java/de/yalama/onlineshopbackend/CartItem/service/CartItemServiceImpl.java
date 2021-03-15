@@ -72,9 +72,32 @@ public class CartItemServiceImpl extends CartItemService {
     }
 
     @Override
+    /**
+     * If The same item already exists in the cart then the quantity is just added.
+     * 1. Find all items by user Id of cartItem
+     * 2. see if any of 1. have the same adId
+     * 3.1 if 2. update quantity
+     * 3.2 else save
+     */
     public CartItem save(CartItem instance) {
+        CartItem alreadySaved = this.findByUserIdAndAdId(instance.getUser().getId(), instance.getAdvertisement().getId());
+        if(alreadySaved != null) {
+            alreadySaved.setQuantity(instance.getQuantity() + alreadySaved.getQuantity());
+            this.update(alreadySaved.getId(), alreadySaved);
+            return alreadySaved;
+        }
         this.validator.checkEntityNotExists(instance.getId());
         return this.cartItemRepository.save(instance);
+    }
+
+    private CartItem findByUserIdAndAdId(Long userId, Long adId) {
+        List<CartItem> userItems = this.findByUserId(userId);
+        for(CartItem item : userItems) {
+            if(item.getAdvertisement().getId() == adId) {
+                return item;
+            }
+        }
+        return null;
     }
 
     @Override
