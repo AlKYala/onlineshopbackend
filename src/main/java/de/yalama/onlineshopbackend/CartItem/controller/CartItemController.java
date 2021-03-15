@@ -69,7 +69,7 @@ public class CartItemController implements BaseController<CartItem, Long> {
         return this.cartItemService.findByAdvertisementId(id);
     }
 
-    @GetMapping("/user/price/{id}")
+    @GetMapping("/user/{id}/price")
     public Double getPriceOfUserCartById(@PathVariable Long id) {
         return this.cartItemService.findCartPriceByUserId(id);
     }
