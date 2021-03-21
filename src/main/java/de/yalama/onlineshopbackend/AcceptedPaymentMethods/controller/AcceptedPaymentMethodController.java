@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("acceptedPaymentMethods")
+@RequestMapping("/acceptedPaymentMethods")
 public class AcceptedPaymentMethodController implements BaseController<AcceptedPaymentMethod, Long> {
 
     @Autowired
