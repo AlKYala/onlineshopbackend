@@ -7,9 +7,9 @@ import java.util.List;
 
 /**
  * @param <T> The class of the entity to be handled in controller requests
- * @param <E> The class used for IDs - Long
+ * @param <ID> The class used for IDs - Long
  */
-public interface BaseController<T, E> {
+public interface BaseController<T, ID> {
 
     /**
      * GET-Request
@@ -22,7 +22,7 @@ public interface BaseController<T, E> {
      * @param id The ID to find an instance of Type T
      * @return An instance of Type T
      */
-    T findById(@PathVariable E id);
+    T findById(@PathVariable ID id);
 
     /**
      * POST-Request
@@ -40,7 +40,7 @@ public interface BaseController<T, E> {
      * @param t The instance to replace the old instance with same id
      * @return The updated instance
      */
-    T update(@PathVariable E id, @RequestBody T t);
+    T update(@PathVariable ID id, @RequestBody T t);
 
     /**
      * DELETE-Request
@@ -48,5 +48,5 @@ public interface BaseController<T, E> {
      * @param id The id of the instane to delete
      * @return the id of the deleted instance
      */
-    E delete(@PathVariable E id);
+    ID delete(@PathVariable ID id);
 }
