@@ -43,6 +43,7 @@ public class AcceptedPaymentMethodController implements BaseController<AcceptedP
     }
 
     @Override
+    @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {
         return this.acceptedPaymentMethodService.deleteById(id);
     }
