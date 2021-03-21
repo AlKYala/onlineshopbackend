@@ -2,6 +2,7 @@ package de.yalama.onlineshopbackend.User.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import de.yalama.onlineshopbackend.AcceptedPaymentMethods.model.AcceptedPaymentMethod;
 import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.CartItem.model.CartItem;
 import de.yalama.onlineshopbackend.Message.privateMessage.model.PrivateMessage;
@@ -81,4 +82,8 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy="user")
     @JsonIgnore
     private Set<CartItem> itemsInCartItem;
+
+    @OneToMany(mappedBy="seller")
+    @JsonIgnore
+    private Set<AcceptedPaymentMethod> acceptedPaymentMethods;
 }

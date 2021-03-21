@@ -1,6 +1,7 @@
 package de.yalama.onlineshopbackend.PaymentMethod.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.yalama.onlineshopbackend.AcceptedPaymentMethods.model.AcceptedPaymentMethod;
 import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
 import lombok.Getter;
@@ -20,4 +21,8 @@ public class PaymentMethod extends BaseEntity {
     @OneToMany(mappedBy = "paymentMethod")
     @JsonIgnore
     private Set<PaymentInformation> paymentInformation;
+
+    @OneToMany(mappedBy = "paymentMethod")
+    @JsonIgnore
+    private Set<AcceptedPaymentMethod> acceptedPaymentMethods;
 }
