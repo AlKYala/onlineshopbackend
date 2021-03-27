@@ -79,7 +79,7 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
     }
 
     @Override
-    public AcceptedPaymentMethod updatePaymentBySelletId(AcceptedPaymentMethod acceptedPaymentMethod) {
+    public AcceptedPaymentMethod updatePayment(AcceptedPaymentMethod acceptedPaymentMethod) {
         List<AcceptedPaymentMethod> acceptedPaymentMethods =  this.findAll();
         Long id = null;
         for(AcceptedPaymentMethod savedPaymentMethod: acceptedPaymentMethods) {

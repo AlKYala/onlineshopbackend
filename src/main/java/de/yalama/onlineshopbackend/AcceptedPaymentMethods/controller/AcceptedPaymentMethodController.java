@@ -52,4 +52,9 @@ public class AcceptedPaymentMethodController implements BaseController<AcceptedP
     public List<PaymentMethod> findPaymentMethodsByUserId(@PathVariable Long id) {
         return this.acceptedPaymentMethodService.findPaymentMethodsBySellerId(id);
     }
+
+    @PutMapping("/update")
+    public AcceptedPaymentMethod updateAcceptedPaymentMethod(@RequestBody AcceptedPaymentMethod acceptedPaymentMethod) {
+        return this.acceptedPaymentMethodService.updatePayment(acceptedPaymentMethod);
+    }
 }

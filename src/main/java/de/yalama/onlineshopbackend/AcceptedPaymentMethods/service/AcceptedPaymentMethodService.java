@@ -8,5 +8,5 @@ import java.util.List;
 
 public abstract class AcceptedPaymentMethodService implements BaseService<AcceptedPaymentMethod> {
     public abstract List<PaymentMethod> findPaymentMethodsBySellerId(Long userId);
-    public abstract AcceptedPaymentMethod updatePaymentBySelletId(AcceptedPaymentMethod acceptedPaymentMethod);
+    public abstract AcceptedPaymentMethod updatePayment(AcceptedPaymentMethod acceptedPaymentMethod);
 }
