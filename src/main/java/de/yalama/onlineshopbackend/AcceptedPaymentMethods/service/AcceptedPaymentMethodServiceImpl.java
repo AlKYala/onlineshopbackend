@@ -79,19 +79,32 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
     }
 
     @Override
-    public Long deleteByObject(AcceptedPaymentMethod acceptedPaymentMethod) {
+    public Long deleteByInstance(AcceptedPaymentMethod acceptedPaymentMethod) {
+        Long id = this.findIdOfAcceptedPaymentMethod(acceptedPaymentMethod);
+        if(id > 0) {
+            this.deleteById(id);
+        }
+        return id;
+    }
+
+    @Override
+    public AcceptedPaymentMethod createOrUpdateInstance(AcceptedPaymentMethod acceptedPaymentMethod) {
+        Long id = this.findIdOfAcceptedPaymentMethod(acceptedPaymentMethod);
+        if(id > 0) {
+            acceptedPaymentMethod.setId(id);
+            return this.update(id, acceptedPaymentMethod);
+        }
+        return this.save(acceptedPaymentMethod);
+    }
+
+    private Long findIdOfAcceptedPaymentMethod(AcceptedPaymentMethod acceptedPaymentMethod) {
         List<AcceptedPaymentMethod> acceptedPaymentMethods =  this.findAll();
-        Long id = null;
         for(AcceptedPaymentMethod savedPaymentMethod: acceptedPaymentMethods) {
             if(savedPaymentMethod.getSeller().getId() == acceptedPaymentMethod.getSeller().getId() &&
-            acceptedPaymentMethod.getPaymentMethod().getId() == savedPaymentMethod.getPaymentMethod().getId()) {
-                id = savedPaymentMethod.getId();
+                    acceptedPaymentMethod.getPaymentMethod().getId() == savedPaymentMethod.getPaymentMethod().getId()) {
+                return savedPaymentMethod.getId();
             }
         }
-
-        if(id == null) {
-            return -1L;
-        }
-        return this.deleteById(id);
+        return -1L;
     }
 }

@@ -8,5 +8,6 @@ import java.util.List;
 
 public abstract class AcceptedPaymentMethodService implements BaseService<AcceptedPaymentMethod> {
     public abstract List<PaymentMethod> findPaymentMethodsBySellerId(Long userId);
-    public abstract Long deleteByObject(AcceptedPaymentMethod acceptedPaymentMethod);
+    public abstract Long deleteByInstance(AcceptedPaymentMethod acceptedPaymentMethod);
+    public abstract AcceptedPaymentMethod createOrUpdateInstance(AcceptedPaymentMethod acceptedPaymentMethod);
 }
