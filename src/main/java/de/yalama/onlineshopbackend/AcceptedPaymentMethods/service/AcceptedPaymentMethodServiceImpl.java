@@ -78,8 +78,8 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
         return paymentMethodsofUser;
     }
 
-    /*@Override
-    public AcceptedPaymentMethod updatePayment(AcceptedPaymentMethod acceptedPaymentMethod) {
+    @Override
+    public Long deleteByObject(AcceptedPaymentMethod acceptedPaymentMethod) {
         List<AcceptedPaymentMethod> acceptedPaymentMethods =  this.findAll();
         Long id = null;
         for(AcceptedPaymentMethod savedPaymentMethod: acceptedPaymentMethods) {
@@ -90,9 +90,8 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
         }
 
         if(id == null) {
-            return this.save(acceptedPaymentMethod);
+            return -1L;
         }
-        acceptedPaymentMethod.setId(id);
-        return this.update(id, acceptedPaymentMethod);
-    }*/
+        return this.deleteById(id);
+    }
 }
