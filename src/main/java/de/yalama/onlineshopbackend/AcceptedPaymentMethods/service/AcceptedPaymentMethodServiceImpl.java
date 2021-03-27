@@ -78,7 +78,7 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
         return paymentMethodsofUser;
     }
 
-    @Override
+    /*@Override
     public AcceptedPaymentMethod updatePayment(AcceptedPaymentMethod acceptedPaymentMethod) {
         List<AcceptedPaymentMethod> acceptedPaymentMethods =  this.findAll();
         Long id = null;
@@ -94,5 +94,5 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
         }
         acceptedPaymentMethod.setId(id);
         return this.update(id, acceptedPaymentMethod);
-    }
+    }*/
 }

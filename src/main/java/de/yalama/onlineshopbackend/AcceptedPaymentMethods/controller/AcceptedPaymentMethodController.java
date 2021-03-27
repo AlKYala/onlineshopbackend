@@ -53,8 +53,8 @@ public class AcceptedPaymentMethodController implements BaseController<AcceptedP
         return this.acceptedPaymentMethodService.findPaymentMethodsBySellerId(id);
     }
 
-    @PutMapping("/update")
+    /*@PutMapping("/update")
     public AcceptedPaymentMethod updateAcceptedPaymentMethod(@RequestBody AcceptedPaymentMethod acceptedPaymentMethod) {
         return this.acceptedPaymentMethodService.updatePayment(acceptedPaymentMethod);
-    }
+    }*/
 }
