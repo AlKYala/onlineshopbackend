@@ -53,7 +53,7 @@ public class AcceptedPaymentMethodController implements BaseController<AcceptedP
         return this.acceptedPaymentMethodService.findPaymentMethodsBySellerId(id);
     }
 
-    @DeleteMapping("/object")
+    @DeleteMapping("/deleteobject")
     public Long deleteByObject(@RequestBody AcceptedPaymentMethod acceptedPaymentMethod) {
         return this.acceptedPaymentMethodService.deleteByObject(acceptedPaymentMethod);
     }
