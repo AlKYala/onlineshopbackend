@@ -77,4 +77,22 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
         }
         return paymentMethodsofUser;
     }
+
+    @Override
+    public AcceptedPaymentMethod updatePaymentBySelletId(AcceptedPaymentMethod acceptedPaymentMethod) {
+        List<AcceptedPaymentMethod> acceptedPaymentMethods =  this.findAll();
+        Long id = null;
+        for(AcceptedPaymentMethod savedPaymentMethod: acceptedPaymentMethods) {
+            if(savedPaymentMethod.getSeller().getId() == acceptedPaymentMethod.getSeller().getId() &&
+            acceptedPaymentMethod.getPaymentMethod().getId() == savedPaymentMethod.getPaymentMethod().getId()) {
+                id = savedPaymentMethod.getId();
+            }
+        }
+
+        if(id == null) {
+            return this.save(acceptedPaymentMethod);
+        }
+        acceptedPaymentMethod.setId(id);
+        return this.update(id, acceptedPaymentMethod);
+    }
 }
