@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentInformationServiceImpl extends PaymentInformationService {
@@ -72,5 +73,13 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
         PaymentMethod paymentMethodOfInformation =
                 this.paymentMethodRepository.findById(toDelete.getPaymentMethod().getId()).get();
         paymentMethodOfInformation.getPaymentInformation().remove(toDelete);
+    }
+
+    @Override
+    public List<PaymentInformation> getPaymentInformationByUserId(Long id) {
+        return this.findAll()
+                .stream()
+                .filter(paymentInformation -> paymentInformation.getSeller().getId() == id)
+                .collect(Collectors.toList());
     }
 }

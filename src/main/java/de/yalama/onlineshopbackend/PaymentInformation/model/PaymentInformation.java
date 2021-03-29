@@ -2,6 +2,7 @@ package de.yalama.onlineshopbackend.PaymentInformation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
+import de.yalama.onlineshopbackend.AcceptedPaymentMethods.model.AcceptedPaymentMethod;
 import de.yalama.onlineshopbackend.PaymentMethod.model.PaymentMethod;
 import de.yalama.onlineshopbackend.Purchase.model.Purchase;
 import de.yalama.onlineshopbackend.User.model.User;
@@ -10,10 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Getter
@@ -46,4 +44,8 @@ public class PaymentInformation extends BaseEntity {
     @OneToMany(mappedBy = "paymentInformation")
     @JsonIgnore
     private Set<Purchase> purchases;
+
+    @OneToOne
+    @JsonIgnore
+    private AcceptedPaymentMethod acceptedPaymentMethod;
 }

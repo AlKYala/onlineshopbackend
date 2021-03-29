@@ -47,4 +47,9 @@ public class PaymentInformationController implements BaseController<PaymentInfor
     public Long delete(@PathVariable Long id) {
         return this.paymentInformationService.deleteById(id);
     }
+
+    @GetMapping("/user/{id}")
+    public List<PaymentInformation> getBySellerId(@PathVariable Long id) {
+        return this.paymentInformationService.getPaymentInformationByUserId(id);
+    }
 }

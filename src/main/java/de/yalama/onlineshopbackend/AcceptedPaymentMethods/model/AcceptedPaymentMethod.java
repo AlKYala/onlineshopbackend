@@ -1,6 +1,7 @@
 package de.yalama.onlineshopbackend.AcceptedPaymentMethods.model;
 
 import com.sun.istack.NotNull;
+import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
 import de.yalama.onlineshopbackend.PaymentMethod.model.PaymentMethod;
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
@@ -11,6 +12,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 @Getter
@@ -28,4 +30,9 @@ public class AcceptedPaymentMethod extends BaseEntity {
     @NotNull
     @JoinColumn
     private PaymentMethod paymentMethod;
+
+    @OneToOne
+    @JoinColumn
+    @NotNull
+    private PaymentInformation paymentInformation;
 }
