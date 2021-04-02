@@ -45,7 +45,7 @@ public class PaymentInformation extends BaseEntity {
     @JsonIgnore
     private Set<Purchase> purchases;
 
-    @OneToOne
+    @OneToOne(mappedBy = "paymentInformation")
     @JsonIgnore
     private AcceptedPaymentMethod acceptedPaymentMethod;
 }
