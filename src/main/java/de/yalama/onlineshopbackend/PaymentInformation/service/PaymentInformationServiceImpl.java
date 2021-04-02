@@ -1,5 +1,6 @@
 package de.yalama.onlineshopbackend.PaymentInformation.service;
 
+import de.yalama.onlineshopbackend.AcceptedPaymentMethods.model.AcceptedPaymentMethod;
 import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
 import de.yalama.onlineshopbackend.PaymentInformation.repository.PaymentInformationRepository;
 import de.yalama.onlineshopbackend.PaymentMethod.model.PaymentMethod;
@@ -81,5 +82,19 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
                 .stream()
                 .filter(paymentInformation -> paymentInformation.getSeller().getId() == id)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public PaymentInformation getPaymentInformationByUserIdAndPaymentMethodID(Long userId, Long paymentMethodId) {
+        return this.findAll()
+                .stream()
+                .filter(paymentInformation ->
+                        this.informationBySellerIdAndPaymentMethodId(paymentInformation, userId, paymentMethodId))
+                .findFirst().get();
+    }
+
+    private boolean informationBySellerIdAndPaymentMethodId(PaymentInformation apm,
+                                                                         Long sellerId, Long paymentMethodId) {
+        return apm.getSeller().getId() == sellerId && paymentMethodId == apm.getPaymentMethod().getId();
     }
 }

@@ -1,4 +1,6 @@
-/** Register users via Frontend **/
+/*
+INSERT INTO user(id, email, username, password, is_banned, is_email_confirmed, rating) VALUES (0, "aaa@googlemail.com", "StinkiStink", "$2a$10$FcUqjy.ty/.p/mh4VFBinuz1JWR1CIRrQqTKkcTDAkn34cuncOa/q", false, false, 0);
+INSERT INTO user(id, email, username, password, is_banned, is_email_confirmed, rating) VALUES (0, "aaa2@googlemail.com", "StinkiStink2", "$2a$10$FcUqjy.ty/.p/mh4VFBinuz1JWR1CIRrQqTKkcTDAkn34cuncOa/q", false, false, 0);
 
 INSERT INTO category(id, name) values (0, 'Japanese Mafia');
 INSERT INTO category(id, name) values (0, 'Auto');
@@ -66,9 +68,10 @@ VALUES(0, 'Placeholder1', 'Placeholder2', 'ASKLDJASKL478676789D', 1, 2)
 INSERT INTO payment_information (id, additional_information1, additional_information2, address, payment_method_id, seller_id)
 VALUES(0, 'Placeholder1', 'Placeholder2', 'ASKLDJASKL478676789D', 2, 2)
 
-INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 4, 1, 1);
-INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 5, 2, 1);
-INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 6, 3, 1);
-INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 7, 1, 2);
-INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 8, 2, 2);
+INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 1, 1, 1);
+INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 2, 2, 1);
+INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 3, 3, 1);
+INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 4, 1, 2);
+INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 5, 2, 2);
 
+**/
