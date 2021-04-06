@@ -51,10 +51,12 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
 
     @Override
     public PaymentInformation save(PaymentInformation instance) {
-        this.validator.checkEntityNotExists(instance.getId());
+        /*this.validator.checkEntityNotExists(instance.getId());
         PaymentInformation instanceSaved = this.paymentInformationRepository.save(instance);
         this.createAccpetedPaymentMethod(instanceSaved);
         return instanceSaved;
+         */
+        return this.createOrUpdatePaymentInformation(instance);
     }
 
     private AcceptedPaymentMethod createAccpetedPaymentMethod(PaymentInformation basis) {
@@ -126,7 +128,7 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
         PaymentInformation pi =
                 this.getPaymentInformationBySellerIdAndPaymentMethodId(instance.getSeller().getId(), instance.getPaymentMethod().getId());
         if (pi == null) {
-            return this.save(instance);
+            return this.paymentInformationRepository.save(instance);
         }
         return this.update(instance.getId(), instance);
     }

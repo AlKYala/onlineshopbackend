@@ -37,6 +37,11 @@ public class PaymentInformationController implements BaseController<PaymentInfor
         return this.paymentInformationService.save(paymentInformation);
     }
 
+    @PostMapping("/persist")
+    public PaymentInformation createOrUpdate(@RequestBody PaymentInformation paymentInformation) {
+        return this.paymentInformationService.createOrUpdatePaymentInformation(paymentInformation);
+    }
+
     @Override
     @PutMapping("/{id}")
     public PaymentInformation update(@PathVariable Long id, @RequestBody PaymentInformation paymentInformation) {
