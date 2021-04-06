@@ -1,6 +1,7 @@
 package de.yalama.onlineshopbackend.PaymentInformation.service;
 
 import de.yalama.onlineshopbackend.AcceptedPaymentMethods.model.AcceptedPaymentMethod;
+import de.yalama.onlineshopbackend.AcceptedPaymentMethods.service.AcceptedPaymentMethodService;
 import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
 import de.yalama.onlineshopbackend.PaymentInformation.repository.PaymentInformationRepository;
 import de.yalama.onlineshopbackend.PaymentMethod.model.PaymentMethod;
@@ -21,10 +22,13 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
     private UserRepository userRepository;
     private PaymentMethodRepository paymentMethodRepository;
     private Validator<PaymentInformation, PaymentInformationRepository> validator;
+    private AcceptedPaymentMethodService acceptedPaymentMethodService;
 
     PaymentInformationServiceImpl(PaymentInformationRepository paymentInformationRepository,
                                   UserRepository userRepository,
-                                  PaymentMethodRepository paymentMethodRepository) {
+                                  PaymentMethodRepository paymentMethodRepository,
+                                  AcceptedPaymentMethodService  acceptedPaymentMethodService) {
+        this.acceptedPaymentMethodService = acceptedPaymentMethodService;
         this.userRepository = userRepository;
         this.paymentMethodRepository = paymentMethodRepository;
         this.paymentInformationRepository = paymentInformationRepository;
@@ -46,7 +50,18 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
     @Override
     public PaymentInformation save(PaymentInformation instance) {
         this.validator.checkEntityNotExists(instance.getId());
-        return this.paymentInformationRepository.save(instance);
+        PaymentInformation instanceSaved = this.paymentInformationRepository.save(instance);
+        this.createAccpetedPaymentMethod(instanceSaved);
+        return instanceSaved;
+    }
+
+    private AcceptedPaymentMethod createAccpetedPaymentMethod(PaymentInformation basis) {
+        AcceptedPaymentMethod apm = new AcceptedPaymentMethod();
+        apm.setPaymentMethod(basis.getPaymentMethod());
+        apm.setPaymentInformation(basis);
+        apm.setSeller(basis.getSeller());
+        apm.setId(0L);
+        return this.acceptedPaymentMethodService.createOrUpdateInstance(apm);
     }
 
     @Override
@@ -59,6 +74,7 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
     public Long deleteById(Long id) {
         this.validator.checkEntityExists(id);
         PaymentInformation toDelete = this.paymentInformationRepository.findById(id).get();
+        this.acceptedPaymentMethodService.deleteById(toDelete.getAcceptedPaymentMethod().getId());
         this.deletePaymentInfoFromUser(toDelete);
         this.deletePaymentInfoFromPaymentMethods(toDelete);
         this.paymentInformationRepository.deleteById(id);

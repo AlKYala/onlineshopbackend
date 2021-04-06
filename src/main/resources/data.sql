@@ -66,7 +66,7 @@ INSERT INTO payment_information (id, additional_information1, additional_informa
 VALUES(0, 'Placeholder1', 'Placeholder2', 'ASKLDJASKL478676789D', 1, 2)
 
 INSERT INTO payment_information (id, additional_information1, additional_information2, address, payment_method_id, seller_id)
-VALUES(0, 'Placeholder1', 'Placeholder2', 'ASKLDJASKL478676789D', 2, 2)
+VALUES(0, 'Placeholder1', 'Placeholder2', 'sample2@sample.com', 2, 2)
 
 INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 1, 1, 1);
 INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 2, 2, 1);
@@ -74,4 +74,4 @@ INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_i
 INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 4, 1, 2);
 INSERT INTO accepted_payment_method(id, payment_information_id, payment_method_id, seller_id) values (0, 5, 2, 2);
 
-**/
+*/
