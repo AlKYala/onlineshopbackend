@@ -47,6 +47,8 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
         return this.paymentInformationRepository.findAll();
     }
 
+
+
     @Override
     public PaymentInformation save(PaymentInformation instance) {
         this.validator.checkEntityNotExists(instance.getId());
@@ -62,6 +64,16 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
         apm.setSeller(basis.getSeller());
         apm.setId(0L);
         return this.acceptedPaymentMethodService.createOrUpdateInstance(apm);
+    }
+
+    public PaymentInformation getPaymentInformationBySellerIdAndPaymentMethodId(Long userId, Long paymentMethodId) {
+        for(PaymentInformation paymentInformation : this.findAll()) {
+            if(paymentInformation.getSeller().getId() == userId &&
+                    paymentInformation.getAcceptedPaymentMethod().getId() == paymentMethodId) {
+                return paymentInformation;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -109,8 +121,18 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
                 .findFirst().get();
     }
 
-    private boolean informationBySellerIdAndPaymentMethodId(PaymentInformation apm,
+    @Override
+    public PaymentInformation createOrUpdatePaymentInformation(PaymentInformation instance) {
+        PaymentInformation pi =
+                this.getPaymentInformationBySellerIdAndPaymentMethodId(instance.getSeller().getId(), instance.getPaymentMethod().getId());
+        if (pi == null) {
+            return this.save(instance);
+        }
+        return this.update(instance.getId(), instance);
+    }
+
+    private boolean informationBySellerIdAndPaymentMethodId(PaymentInformation pi,
                                                                          Long sellerId, Long paymentMethodId) {
-        return apm.getSeller().getId() == sellerId && paymentMethodId == apm.getPaymentMethod().getId();
+        return pi.getSeller().getId() == sellerId && paymentMethodId == pi.getPaymentMethod().getId();
     }
 }

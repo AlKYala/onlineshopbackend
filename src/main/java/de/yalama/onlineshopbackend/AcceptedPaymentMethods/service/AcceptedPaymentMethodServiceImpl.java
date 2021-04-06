@@ -107,4 +107,12 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
         }
         return -1L;
     }
+
+    @Override
+    public AcceptedPaymentMethod findByPaymentInformationId(Long paymentInformationId) {
+        return this.findAll()
+                .stream()
+                .filter(acceptedPaymentMethod -> acceptedPaymentMethod.getPaymentInformation().getId() == paymentInformationId)
+                .findFirst().get();
+    }
 }
