@@ -1,5 +1,6 @@
 package de.yalama.onlineshopbackend.AcceptedPaymentMethods.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
 import de.yalama.onlineshopbackend.PaymentMethod.model.PaymentMethod;
@@ -33,6 +34,6 @@ public class AcceptedPaymentMethod extends BaseEntity {
 
     @OneToOne
     @JoinColumn
-    @NotNull
+    @JsonIgnore
     private PaymentInformation paymentInformation;
 }
