@@ -32,8 +32,7 @@ public class AcceptedPaymentMethod extends BaseEntity {
     @JoinColumn
     private PaymentMethod paymentMethod;
 
-    @OneToOne
-    @JoinColumn
+    @OneToOne(mappedBy = "acceptedPaymentMethod")
     @JsonIgnore
     private PaymentInformation paymentInformation;
 }
