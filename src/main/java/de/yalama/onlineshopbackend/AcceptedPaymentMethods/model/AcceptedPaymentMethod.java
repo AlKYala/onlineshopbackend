@@ -38,7 +38,7 @@ public class AcceptedPaymentMethod extends BaseEntity {
 
     @Override
     public String toString() {
-        return String.format("ID: %d Seller: 5s PaymentMethod: %s", this.getId(), this.getSeller().toString(),
+        return String.format("ID: %d Seller: %s PaymentMethod: %s", this.getId(), this.getSeller().toString(),
                 this.getPaymentMethod().toString());
     }
 }

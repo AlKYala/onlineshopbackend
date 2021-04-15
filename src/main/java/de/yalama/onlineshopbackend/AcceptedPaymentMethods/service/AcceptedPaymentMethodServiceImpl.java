@@ -60,6 +60,7 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
                 .getPaymentMethod()
                 .getAcceptedPaymentMethods()
                 .removeIf(acceptedPaymentMethod -> acceptedPaymentMethod.getId() == id);
+        toDelete.getPaymentInformation().setAcceptedPaymentMethod(null);
         this.acceptedPaymentMethodRepository.deleteById(id);
         return id;
     }
