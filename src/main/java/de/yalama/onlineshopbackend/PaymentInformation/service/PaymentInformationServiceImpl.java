@@ -9,6 +9,7 @@ import de.yalama.onlineshopbackend.PaymentMethod.repository.PaymentMethodReposit
 import de.yalama.onlineshopbackend.User.model.User;
 import de.yalama.onlineshopbackend.User.repository.UserRepository;
 import de.yalama.onlineshopbackend.shared.service.Validator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class PaymentInformationServiceImpl extends PaymentInformationService {
 
     private PaymentInformationRepository paymentInformationRepository;
@@ -69,9 +71,10 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
     }
 
     public PaymentInformation getPaymentInformationBySellerIdAndPaymentMethodId(Long userId, Long paymentMethodId) {
+        log.info(String.format("UserID: %d, PMID: %d", userId, paymentMethodId));
         for(PaymentInformation paymentInformation : this.findAll()) {
             if(paymentInformation.getSeller().getId() == userId &&
-                    paymentInformation.getAcceptedPaymentMethod().getId() == paymentMethodId) {
+                    paymentInformation.getPaymentMethod().getId() == paymentMethodId) {
                 return paymentInformation;
             }
         }
@@ -127,7 +130,9 @@ public class PaymentInformationServiceImpl extends PaymentInformationService {
     public PaymentInformation createOrUpdatePaymentInformation(PaymentInformation instance) {
         PaymentInformation pi =
                 this.getPaymentInformationBySellerIdAndPaymentMethodId(instance.getSeller().getId(), instance.getPaymentMethod().getId());
+        log.info(instance.toString());
         if (pi == null) {
+            log.info("save");
             return this.paymentInformationRepository.save(instance);
         }
         return this.update(instance.getId(), instance);

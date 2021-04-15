@@ -48,4 +48,11 @@ public class PaymentInformation extends BaseEntity {
     @OneToOne
     @JoinColumn
     private AcceptedPaymentMethod acceptedPaymentMethod;
+
+    @Override
+    public String toString() {
+        return String.format("PaymentInformation: Id: %d, Address: %s, Seller: %s, PaymentMethod: %s APM: %s",
+                this.getId(), this.getAddress(), this.seller.toString(), this.paymentMethod.toString(),
+                this.acceptedPaymentMethod.toString());
+    }
 }

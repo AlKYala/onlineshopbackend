@@ -35,4 +35,10 @@ public class AcceptedPaymentMethod extends BaseEntity {
     @OneToOne(mappedBy = "acceptedPaymentMethod")
     @JsonIgnore
     private PaymentInformation paymentInformation;
+
+    @Override
+    public String toString() {
+        return String.format("ID: %d Seller: 5s PaymentMethod: %s", this.getId(), this.getSeller().toString(),
+                this.getPaymentMethod().toString());
+    }
 }

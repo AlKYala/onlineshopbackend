@@ -25,4 +25,8 @@ public class PaymentMethod extends BaseEntity {
     @OneToMany(mappedBy = "paymentMethod")
     @JsonIgnore
     private Set<AcceptedPaymentMethod> acceptedPaymentMethods;
+
+    public String toString() {
+        return String.format("PaymentMethod - ID: %d Name: %s", this.getId(), this.getName());
+    }
 }

@@ -59,7 +59,7 @@ public class Validator<E extends BaseEntity, T extends JpaRepository> {
      */
     public void checkEntityExists(Long id) {
         if(!this.repository.existsById(id)) {
-            String message = String.format("Entity of class %d with ID %D cannot be found", this.entityName, id);
+            String message = String.format("Entity of class %s with ID %d cannot be found", this.entityName, id);
             log.info(message);
             throw new NotFoundException(message);
         }
