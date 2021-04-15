@@ -2,6 +2,7 @@ package de.yalama.onlineshopbackend.PaymentInformation.controller;
 
 import de.yalama.onlineshopbackend.PaymentInformation.model.PaymentInformation;
 import de.yalama.onlineshopbackend.PaymentInformation.service.PaymentInformationService;
+import de.yalama.onlineshopbackend.PaymentMethod.model.PaymentMethod;
 import de.yalama.onlineshopbackend.shared.Controller.BaseController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class PaymentInformationController implements BaseController<PaymentInfor
         return this.paymentInformationService.save(paymentInformation);
     }
 
+    @PostMapping("/persist")
+    public PaymentInformation createOrUpdate(@RequestBody PaymentInformation paymentInformation) {
+        return this.paymentInformationService.createOrUpdatePaymentInformation(paymentInformation);
+    }
+
     @Override
     @PutMapping("/{id}")
     public PaymentInformation update(@PathVariable Long id, @RequestBody PaymentInformation paymentInformation) {
@@ -46,5 +52,15 @@ public class PaymentInformationController implements BaseController<PaymentInfor
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {
         return this.paymentInformationService.deleteById(id);
+    }
+
+    @GetMapping("/user/{id}")
+    public List<PaymentInformation> getBySellerId(@PathVariable Long id) {
+        return this.paymentInformationService.getPaymentInformationByUserId(id);
+    }
+
+    @GetMapping("/user/{userId}/paymentMethod/{paymentMethodId}")
+    public PaymentInformation getBySellerIdAndPaymentMethodId(@PathVariable Long userId, @PathVariable Long paymentMethodId) {
+        return this.paymentInformationService.getPaymentInformationByUserIdAndPaymentMethodID(userId, paymentMethodId);
     }
 }

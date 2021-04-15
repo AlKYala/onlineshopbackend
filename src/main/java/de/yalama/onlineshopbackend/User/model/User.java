@@ -86,4 +86,9 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy="seller")
     @JsonIgnore
     private Set<AcceptedPaymentMethod> acceptedPaymentMethods;
+
+    @Override
+    public String toString() {
+        return String.format("Seller: ID %d Email: %s", this.getId(), this.getEmail());
+    }
 }

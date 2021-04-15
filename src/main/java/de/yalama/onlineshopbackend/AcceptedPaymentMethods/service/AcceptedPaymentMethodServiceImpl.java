@@ -60,6 +60,7 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
                 .getPaymentMethod()
                 .getAcceptedPaymentMethods()
                 .removeIf(acceptedPaymentMethod -> acceptedPaymentMethod.getId() == id);
+        toDelete.getPaymentInformation().setAcceptedPaymentMethod(null);
         this.acceptedPaymentMethodRepository.deleteById(id);
         return id;
     }
@@ -76,5 +77,43 @@ public class AcceptedPaymentMethodServiceImpl extends AcceptedPaymentMethodServi
             paymentMethodsofUser.add(acceptedPaymentMethod.getPaymentMethod());
         }
         return paymentMethodsofUser;
+    }
+
+    @Override
+    public Long deleteByInstance(AcceptedPaymentMethod acceptedPaymentMethod) {
+        Long id = this.findIdOfAcceptedPaymentMethod(acceptedPaymentMethod);
+        if(id > 0) {
+            this.deleteById(id);
+        }
+        return id;
+    }
+
+    @Override
+    public AcceptedPaymentMethod createOrUpdateInstance(AcceptedPaymentMethod acceptedPaymentMethod) {
+        Long id = this.findIdOfAcceptedPaymentMethod(acceptedPaymentMethod);
+        if(id > 0) {
+            acceptedPaymentMethod.setId(id);
+            return this.update(id, acceptedPaymentMethod);
+        }
+        return this.save(acceptedPaymentMethod);
+    }
+
+    private Long findIdOfAcceptedPaymentMethod(AcceptedPaymentMethod acceptedPaymentMethod) {
+        List<AcceptedPaymentMethod> acceptedPaymentMethods =  this.findAll();
+        for(AcceptedPaymentMethod savedPaymentMethod: acceptedPaymentMethods) {
+            if(savedPaymentMethod.getSeller().getId() == acceptedPaymentMethod.getSeller().getId() &&
+                    acceptedPaymentMethod.getPaymentMethod().getId() == savedPaymentMethod.getPaymentMethod().getId()) {
+                return savedPaymentMethod.getId();
+            }
+        }
+        return -1L;
+    }
+
+    @Override
+    public AcceptedPaymentMethod findByPaymentInformationId(Long paymentInformationId) {
+        return this.findAll()
+                .stream()
+                .filter(acceptedPaymentMethod -> acceptedPaymentMethod.getPaymentInformation().getId() == paymentInformationId)
+                .findFirst().get();
     }
 }
