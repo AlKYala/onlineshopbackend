@@ -8,6 +8,8 @@ import de.yalama.onlineshopbackend.shared.service.Validator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,5 +75,11 @@ public class PictureServiceImpl extends PictureService {
                 .stream()
                 .filter(picture -> picture.getAdvertisementOfImage().getId() == adId)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Picture[] addAllPictures(Picture[] pictures) {
+        this.pictureRepository.saveAll(Arrays.asList(pictures.clone()));
+        return pictures;
     }
 }

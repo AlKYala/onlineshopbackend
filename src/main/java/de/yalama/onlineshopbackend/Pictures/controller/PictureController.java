@@ -31,7 +31,7 @@ public class PictureController implements BaseController<Picture, Long> {
     }
 
     @Override
-    @PostMapping
+    @PostMapping("/add")
     public Picture create(@RequestBody Picture picture) {
         return this.pictureService.save(picture);
     }
@@ -56,5 +56,10 @@ public class PictureController implements BaseController<Picture, Long> {
     @GetMapping("/advertisement/{id}")
     public List<Picture> findAllByAdvertisementId(@PathVariable Long id) {
         return this.pictureService.findPicturesByAdId(id);
+    }
+
+    @PostMapping("/addAll")
+    public Picture[] addPictures(Picture[] pictures) {
+        return this.pictureService.addAllPictures(pictures);
     }
 }
