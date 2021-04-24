@@ -167,9 +167,7 @@ values (0, 'Die Kids im Internet stehen voll drauf', 50, 'Porsche Cayman S', tru
 INSERT INTO advertisement(id, description, price, title, featured, featured_description, featured_title, featured_picture_url, marke_id, seller_id)
 values (0, 'Die Versicherung wird teuer', 50, '2021 911er GT3', false, 'Der neue 911er GT3', 'Porsche 911 GT3 2021', 'https://cdn.motor1.com/images/mgl/nYWJy/s3/2021-porsche-911-gt3-prototype-rear-quarter-dynamic.jpg', 2, 1);
 
-INSERT INTO picture(id, picture_url, advertisement_of_image_id) values (0, 'https://static.wikia.nocookie.net/yakuza/images/5/54/Kiryu_%28Y7%29.jpg/revision/latest?cb=20191113051410', 2);
 
-INSERT INTO picture(id, picture_url, advertisement_of_image_id) values (0, 'https://static.wikia.nocookie.net/yakuza/images/5/54/Kiryu_%28Y7%29.jpg/revision/latest?cb=20191113051410', 2);
 
 INSERT INTO advertisement(id, description, featured, featured_description, featured_picture_url, price, title, marke_id, seller_id)
 values (0, 'Saejima beschützt dich für eine ganze Woche', false, 'Saejima beschützt dich für eine ganze Woche', 'https://i.ytimg.com/vi/45VxNsYwW_o/maxresdefault.jpg', 1000, 'Ex Yakuza: Taiga Saejima', 1, 1);
@@ -179,6 +177,9 @@ values (0, 'Judas Priest kommt zu dir in die Ortschaft', 50, 'Judas Priest', tru
 
 INSERT INTO picture(id, picture_url, advertisement_of_image_id) values(0, 'https://emt-images.s3.eu-central-1.amazonaws.com/attraction/image-thumb/attraction_og/judas-priest-79bbc.jpg', 5);
 INSERT INTO picture(id, picture_url, advertisement_of_image_id) values(0, 'https://consequenceofsound.net/wp-content/uploads/2020/09/Judas-Priest.jpg?quality=80', 5);
+INSERT INTO picture(id, picture_url, advertisement_of_image_id) values (0, 'hhttps://images-eu.ssl-images-amazon.com/images/I/61QjBuvk-AL._AC_UL600_SR600,600_.jpg', 1);
+INSERT INTO picture(id, picture_url, advertisement_of_image_id) values (0, 'https://www.motorsport-total.com/img/2021/210216/296181_w660_h330.jpg?ts=1613491014', 3);
+INSERT INTO picture(id, picture_url, advertisement_of_image_id) values (0, 'https://www.siliconera.com/wp-content/uploads/2020/01/yakuza-like-a-dragon-saejima-1.jpg', 4);
 
 
 INSERT INTO cart_item(id, user_id, advertisement_id, quantity) values (0, 1, 1, 1);
