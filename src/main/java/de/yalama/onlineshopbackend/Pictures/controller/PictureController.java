@@ -58,8 +58,10 @@ public class PictureController implements BaseController<Picture, Long> {
         return this.pictureService.findPicturesByAdId(id);
     }
 
-    @PostMapping("/addAll")
-    public Picture[] addPictures(Picture[] pictures) {
+    @PostMapping("/addall")
+    public Picture[] addPictures(@RequestBody Picture[] pictures) {
         return this.pictureService.addAllPictures(pictures);
     }
 }
+
+//Notiz: Wenn Spring sagt dass der Constructor fuer eine Klasse fehlt, musst du @Requestbody hinzufuegen
