@@ -46,4 +46,9 @@ public class CategoryController implements BaseController<Category, Long> {
     public Long delete(@PathVariable Long id) {
         return this.categoryService.deleteById(id);
     }
+
+    @GetMapping("/exists/{name}")
+    public Boolean existsByName(@PathVariable String name) {
+        return this.categoryService.existsByName(name);
+    }
 }

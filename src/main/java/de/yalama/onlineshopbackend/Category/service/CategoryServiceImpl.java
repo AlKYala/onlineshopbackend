@@ -63,4 +63,9 @@ public class CategoryServiceImpl extends CategoryService {
         this.categoryRepository.deleteById(id);
         return id;
     }
+
+    @Override
+    public Boolean existsByName(String name) {
+        return this.findAll().stream().anyMatch(category -> category.getName().equals(name));
+    }
 }
