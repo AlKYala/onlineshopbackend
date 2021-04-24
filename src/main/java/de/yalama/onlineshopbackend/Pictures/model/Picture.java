@@ -3,9 +3,7 @@ package de.yalama.onlineshopbackend.Pictures.model;
 import com.sun.istack.NotNull;
 import de.yalama.onlineshopbackend.Advertisement.model.Advertisement;
 import de.yalama.onlineshopbackend.shared.models.BaseEntity;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

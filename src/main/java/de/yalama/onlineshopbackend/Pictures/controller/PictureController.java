@@ -31,7 +31,7 @@ public class PictureController implements BaseController<Picture, Long> {
     }
 
     @Override
-    @PostMapping
+    @PostMapping("/add")
     public Picture create(@RequestBody Picture picture) {
         return this.pictureService.save(picture);
     }
@@ -57,4 +57,11 @@ public class PictureController implements BaseController<Picture, Long> {
     public List<Picture> findAllByAdvertisementId(@PathVariable Long id) {
         return this.pictureService.findPicturesByAdId(id);
     }
+
+    @PostMapping("/addall")
+    public Picture[] addPictures(@RequestBody Picture[] pictures) {
+        return this.pictureService.addAllPictures(pictures);
+    }
 }
+
+//Notiz: Wenn Spring sagt dass der Constructor fuer eine Klasse fehlt, musst du @Requestbody hinzufuegen
