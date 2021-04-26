@@ -49,6 +49,6 @@ public class CategoryController implements BaseController<Category, Long> {
 
     @GetMapping("/exists/{name}")
     public Boolean existsByName(@PathVariable String name) {
-        return this.categoryService.existsByName(name);
+        return this.categoryService.existsByName(name.toLowerCase());
     }
 }

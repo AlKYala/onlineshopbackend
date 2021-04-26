@@ -46,4 +46,9 @@ public class MarkenController implements BaseController<Marke, Long> {
     public Long delete(@PathVariable Long id) {
         return this.markeService.deleteById(id);
     }
+
+    @GetMapping("/exists/{name}")
+    public Boolean existsByName(@PathVariable String name) {
+        return this.markeService.existsByName(name.toLowerCase());
+    }
 }

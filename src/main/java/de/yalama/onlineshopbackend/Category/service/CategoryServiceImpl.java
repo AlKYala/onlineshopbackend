@@ -67,6 +67,6 @@ public class CategoryServiceImpl extends CategoryService {
     @Override
     public Boolean existsByName(String name) {
         return this.findAll()
-                .stream().anyMatch(category -> category.getName().toLowerCase().equals(name.toLowerCase()));
+                .stream().anyMatch(category -> category.getName().toLowerCase().equals(name));
     }
 }

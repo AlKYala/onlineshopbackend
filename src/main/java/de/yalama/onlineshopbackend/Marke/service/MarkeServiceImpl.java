@@ -65,5 +65,8 @@ public class MarkeServiceImpl extends MarkeService {
         return id;
     }
 
-
+    @Override
+    public Boolean existsByName(String name) {
+        return this.findAll().stream().anyMatch(marke -> marke.getName().toLowerCase().equals(name));
+    }
 }
