@@ -51,4 +51,10 @@ public class MarkenController implements BaseController<Marke, Long> {
     public Boolean existsByName(@PathVariable String name) {
         return this.markeService.existsByName(name.toLowerCase());
     }
+
+    @GetMapping("/exists")
+    public Boolean existsByProperties(@RequestBody Marke marke) {
+        marke.setName(marke.getName().toLowerCase());
+        return this.markeService.existsByProperties(marke);
+    }
 }

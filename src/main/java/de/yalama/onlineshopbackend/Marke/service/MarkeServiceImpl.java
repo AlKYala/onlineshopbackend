@@ -69,4 +69,11 @@ public class MarkeServiceImpl extends MarkeService {
     public Boolean existsByName(String name) {
         return this.findAll().stream().anyMatch(marke -> marke.getName().toLowerCase().equals(name));
     }
+
+    @Override
+    public Boolean existsByProperties(Marke marke) {
+        return this.findAll().stream().anyMatch(markeTemp ->
+                markeTemp.getName().toLowerCase().equals(marke.getName()) &&
+                        markeTemp.getCategory().getId() == marke.getCategory().getId());
+    }
 }

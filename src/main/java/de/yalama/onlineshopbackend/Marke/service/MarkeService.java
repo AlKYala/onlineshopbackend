@@ -5,4 +5,5 @@ import de.yalama.onlineshopbackend.shared.service.BaseService;
 
 public abstract class MarkeService implements BaseService<Marke> {
     public abstract Boolean existsByName(String name);
+    public abstract Boolean existsByProperties(Marke marke);
 }
